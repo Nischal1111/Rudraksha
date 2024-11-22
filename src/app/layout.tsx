@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Poppins } from 'next/font/google';
 import { Provider } from "@/providers/provider";
+import Nav from "@/shared/Navbar/Nav";
+import ScrollToTop from "@/shared/ScrollToTop";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -25,7 +27,9 @@ export default function RootLayout({
           className={`${poppins.className} antialiased mx-auto max-w-screen-2xl bg-[#F4F6FF] text-black`}
           >
           <Provider>
+            <Nav/>
             {children}
+            <ScrollToTop/>
           </Provider>
         </body>
     </html>
