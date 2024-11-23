@@ -4,6 +4,8 @@ import React from 'react'
 import { CiSearch } from 'react-icons/ci'
 import ProductsHome from './ProductsHome'
 import Categories from './Categories'
+import CountryBeads from './CountryBeads'
+import WhyUs from './Benefits'
 
 const MainHome = () => {
     return (
@@ -37,6 +39,8 @@ const MainHome = () => {
         <div className="space-y-12">
                 <ProductsHome />
                 <Categories />
+                <CountryBeads/>
+                <WhyUs/>
             </div>
         </>
     )

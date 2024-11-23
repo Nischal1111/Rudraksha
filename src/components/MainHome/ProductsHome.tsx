@@ -62,7 +62,7 @@ const ProductsHome = () => {
     };
     return (
         <div className='w-full relative flex flex-col px-24 bg-primary/10'>
-            <SharedTitle title="Rudraksha Beads"/>
+            <SharedTitle title="Top Selling Products"/>
             <p className='text-justify mb-8'>Rudraksha beads are sacred seeds revered for their spiritual and healing properties. Rooted in ancient traditions and mentioned in sacred texts, authentic rudraksha is a divine gift from nature, believed to be blessed by Lord Shiva. Each bead carries unique energies that promote mental clarity, emotional balance, and spiritual growth.</p>
             <div className='w-full  pb-12'>
                 <Slider {...settings}>
