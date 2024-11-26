@@ -2,13 +2,12 @@
 import SharedTitle from '@/shared/SharedTitle/SharedTitle'
 import { Button } from '@nextui-org/react';
 import React from 'react'
-import { FaArrowRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { CustomArrowProps } from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
 import Image from 'next/image';
-import { div } from 'framer-motion/client';
 import { josefin } from '@/utils/font';
 
 interface CustomArrowComponentProps extends CustomArrowProps {
