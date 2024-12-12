@@ -24,12 +24,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-[#F4F6FF] text-black">
         <body
-          className={`${poppins.className} antialiased mx-auto max-w-screen-2xl bg-[#F4F6FF] text-black`}
+          className={`${poppins.className} suppressHydrationWarning antialiased mx-auto max-w-screen-[2000px] bg-[#F4F6FF] text-black`}
           >
           <Provider>
             <Nav/>
-            {children}
-            <ScrollToTop/>
+            <main className="py-20">
+              {children}
+            </main>
+              <ScrollToTop/>
           </Provider>
         </body>
     </html>
