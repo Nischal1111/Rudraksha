@@ -1,5 +1,5 @@
 "use client"
-import { Button} from '@nextui-org/react'
+import { Avatar, Button} from '@nextui-org/react'
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -8,10 +8,15 @@ import Image from 'next/image'
 import { stylishFont } from '@/utils/font'
 import Login from '../Login/Login'
 import Signup from '../SignUp/SignUp'
+import { useSession } from 'next-auth/react'
+import { AuthResponse } from '@/types/types'
 
 const Navbar = () => {
     const [open,setOpen]=React.useState(false)
     const [signUpOpen,setSignUpOpen]=React.useState(false)
+    const {data:sessionData,status}=useSession()
+    const session=sessionData as unknown as AuthResponse
+    const isLoggedIn = status === "authenticated";
     const nav=[
         {
             title:"Home",
@@ -82,11 +87,25 @@ const Navbar = () => {
                         </div>
                         <Button variant='light' isIconOnly className='bg-transparent text-base text-primary underline underline-offset-4' startContent={<CiShoppingCart size={28} className='text-[#E8B86D]'/>}></Button>
                     </div>  
+                    {isLoggedIn ? <div className='flex items-center gap-2'>
+                        <Avatar
+                                            color='warning'
+                                            as="button"
+                                            size="md"
+                                            src={`https://ui-avatars.com/api/?name=${session?.user?.name}&background=E4C087&color=ffff`}
+                                        />
+                        <div className='flex flex-col'>
+                            <p className=' text-gray-600 capitalize'>{sessionData?.user?.name}</p>
+                            <p className='text-xs text-gray-400 lowercase'>{sessionData?.user?.email}</p>
+                        </div>
+                    </div> 
+                    :
                     <div className='flex gap-2 items-center'>
                         <Button size='sm' className='text-white rounded-2xl bg-primary px-4 ' onPress={()=>handleLogin()}>Login</Button>
                         /
                         <Button variant='light' className='text-primary hover:underline hover:underline-offset-2 cursor-pointer' onPress={()=>handleSign()}>Signup</Button>
                     </div>    
+                    }
                 </div>
             </div>
         </div>

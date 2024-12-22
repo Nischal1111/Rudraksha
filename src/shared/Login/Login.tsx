@@ -82,7 +82,7 @@ const Login:React.FC<Props> = ({isOpen,onOpenChange}) => {
                 >
                     <Input
                     isRequired
-                    label="Username"
+                    label="E-mail"
                     labelPlacement="outside"
                     placeholder="eg. Johndoe"
                     type="text"
@@ -151,7 +151,7 @@ const Login:React.FC<Props> = ({isOpen,onOpenChange}) => {
                         type="submit"
                         className="bg-primary w-full rounded-sm text-white"
                     >
-                        Sign In
+                        Log In
                     </Button>
                     </div>
                 </form>

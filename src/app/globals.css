@@ -29,3 +29,7 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.animation-play-state-paused {
+  animation-play-state: paused !important;
+}

@@ -5,6 +5,8 @@ import ProductsHome from './ProductsHome'
 import Categories from './Categories'
 import CountryBeads from './CountryBeads'
 import WhyUs from './Benefits'
+import Reviews from './Reviews'
+import ChooseUs from './ChooseUs'
 
 const MainHome = () => {
     return (
@@ -32,6 +34,8 @@ const MainHome = () => {
                 <Categories />
                 <CountryBeads/>
                 <WhyUs/>
+                <Reviews/>
+                <ChooseUs/>
             </div>
         </>
     )

@@ -8,7 +8,6 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/shared/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
-
   ],
   theme: {
     extend: {
@@ -16,7 +15,7 @@ export default {
         primary: "#E4C087",
         background: "var(--background)",
         foreground: "var(--foreground)",
-      },
+      }
     },
   },
   plugins: [nextui()],

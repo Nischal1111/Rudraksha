@@ -4,6 +4,8 @@ import { Poppins } from 'next/font/google';
 import { Provider } from "@/providers/provider";
 import Nav from "@/shared/Navbar/Nav";
 import ScrollToTop from "@/shared/ScrollToTop";
+import { Toaster } from "sonner";
+import Footer from "@/shared/Footer/Footer";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -28,10 +30,12 @@ export default function RootLayout({
           >
           <Provider>
             <Nav/>
+            <Toaster richColors/>
             <main className="py-20">
               {children}
             </main>
-              <ScrollToTop/>
+            <ScrollToTop/>
+            <Footer/>
           </Provider>
         </body>
     </html>

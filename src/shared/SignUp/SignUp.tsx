@@ -16,9 +16,10 @@ import { useMutation } from "@tanstack/react-query";
 import Login from "../Login/Login";
 import { registerUser } from "@/services/user";
 import Alert from "../Alert";
+import { toast } from "sonner";
 
 const schema = z.object({
-    username: z
+    fullName: z
         .string()
         .transform((value) => value.replaceAll(" ", ""))
         .pipe(z.string().min(1, { message: "Username is required" })),
@@ -55,9 +56,10 @@ interface Props {
     // Initializing useMutation for handling the signup
     const { data, mutate, error, isPending } = useMutation({ //eslint-disable-line @typescript-eslint/no-unused-vars
         mutationFn: registerUser,
-        onSuccess: (data) => { //eslint-disable-line @typescript-eslint/no-unused-vars
-        onOpenChange(false); // Close signup modal
-        setIsLoginOpen(true); // Open login modal
+        onSuccess: () => { //eslint-disable-line @typescript-eslint/no-unused-vars
+            toast.success("Your account has been created successfully.");
+            onOpenChange(false); // Close signup modal
+            setIsLoginOpen(true); // Open login modal
         },
         onError: (error: any) => { //eslint-disable-line @typescript-eslint/no-explicit-any
         const message =
@@ -107,9 +109,9 @@ interface Props {
                     classNames={{
                         label: "!text-black",}}
                     radius="sm"
-                    isInvalid={!!errors.username}
-                    errorMessage={errors.username?.message}
-                    {...register("username")}
+                    isInvalid={!!errors.fullName}
+                    errorMessage={errors.fullName?.message}
+                    {...register("fullName")}
                     />
                     <Input
                     isRequired

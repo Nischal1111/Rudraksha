@@ -18,8 +18,8 @@ import { AuthResponse } from "@/types/types";
             }
 
             try {
-            const res = await axios.post<AuthResponse>(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/local`, {
-                identifier: credentials.identifier,
+            const res = await axios.post<AuthResponse>(`https://rudruksha-server.onrender.com/auth/login`, {
+                email: credentials.identifier,
                 password: credentials.password,
             });
 
@@ -28,7 +28,7 @@ import { AuthResponse } from "@/types/types";
             if (user) {
                 return {
                 jwt: user.jwt,
-                name: user.user.username,
+                name: user.user.name,
                 id: user.user.id,
                 email: user.user.email,
                 };
