@@ -1,7 +1,7 @@
 "use client"
 import { BreadcrumbItem, Breadcrumbs, Button } from '@nextui-org/react'
 import React, { useEffect, useRef, useState } from 'react'
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaTrash } from 'react-icons/fa';
 import Slider, { CustomArrowProps } from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,6 +15,9 @@ import { useQuery } from '@tanstack/react-query';
 import { getSingleProduct } from '@/services/products';
 import Loader from '@/shared/Loader';
 import { useParams } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
 
 interface CustomArrowComponentProps extends CustomArrowProps {
     onClick?: () => void;
@@ -46,6 +49,29 @@ const SingleProduct = () => {
   const sliderRef1 = useRef<Slider | null>(null);
   const sliderRef2 = useRef<Slider | null>(null);
   const id=useParams().id as string
+
+  const dispatch=useDispatch()
+  const cartItems=useSelector((state:RootState)=>state.cart.items)
+
+  const isInCart=cartItems.find(item=>item._id===id)
+
+  const handleCart = () => {
+    if (isInCart) {
+      dispatch(removeFromCart({ _id: singleProduct?.product?._id }))
+    } else {
+      dispatch(addToCart({
+        _id: singleProduct?.product?._id,
+        title: singleProduct?.product?.title,
+        price: singleProduct?.product?.price,
+        img: singleProduct?.product?.img,
+        quantity: 1,
+        description: singleProduct?.product?.description,
+        faces: singleProduct?.product?.faces,
+        country: singleProduct?.product?.country,
+        size: singleProduct?.product?.size
+      }))
+    }
+  }
 
   const settings = {
         infinite: true,
@@ -102,6 +128,7 @@ const SingleProduct = () => {
     queryFn:()=>getSingleProduct(id),
     enabled:!!id
   })
+
   const details=[
     {
       title:"Size",
@@ -189,7 +216,13 @@ const SingleProduct = () => {
               {singleProduct?.product?.description}
               </p>
               <p className='flex gap-2 items-center my-4'><CiCircleCheck className='text-primary' size={25}/>In stock - 56 left - Ready to ship</p>
-              <Button startContent={<IoBagAddOutline className='text-white' size={20}/>} className='bg-primary flex items-center rounded-sm px-8 py-0 my-8 text-white'>Add to cart</Button>
+              <Button 
+                  startContent={isInCart ? <FaTrash className='text-white' size={16}/> : <IoBagAddOutline className='text-white' size={20}/>} 
+                  className={`${isInCart ? 'bg-red-600' : 'bg-primary'} flex items-center rounded-sm px-8 py-0 my-8 text-white`}
+                  onClick={handleCart}
+                >
+                  {isInCart ? 'Remove from cart' : 'Add to cart'}
+              </Button>
               <div className="w-full relative shadow-md flex items-center justify-between py-8 px-6 rounded-sm bg-gray-100">
                 <div className="absolute inset-0">
                   <Image 

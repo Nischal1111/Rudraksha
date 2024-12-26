@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Poppins } from 'next/font/google';
-import { Provider } from "@/providers/provider";
 import Nav from "@/shared/Navbar/Nav";
 import ScrollToTop from "@/shared/ScrollToTop";
 import { Toaster } from "sonner";
 import Footer from "@/shared/Footer/Footer";
+import { Providers } from "@/store/providers";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -28,7 +28,7 @@ export default function RootLayout({
         <body
           className={`${poppins.className} suppressHydrationWarning antialiased mx-auto max-w-screen-[2000px] bg-[#F4F6FF] text-black`}
           >
-          <Provider>
+          <Providers>
             <Nav/>
             <Toaster richColors/>
             <main className="py-20">
@@ -36,7 +36,7 @@ export default function RootLayout({
             </main>
             <ScrollToTop/>
             <Footer/>
-          </Provider>
+          </Providers>
         </body>
     </html>
   );

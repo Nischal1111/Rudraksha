@@ -17,3 +17,12 @@ export const getSingleProduct=async(id:string)=>{
         console.log(error)
     }
 }
+
+export const getAllProducts=async(page:number,limit:number)=>{
+    try{
+        const res=await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/get/products?page=${page}&limit=${limit}`)
+        return res.data
+    }catch(error){
+        console.log(error)
+    }
+}

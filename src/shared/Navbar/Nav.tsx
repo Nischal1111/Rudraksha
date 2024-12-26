@@ -10,6 +10,8 @@ import Login from '../Login/Login'
 import Signup from '../SignUp/SignUp'
 import { useSession } from 'next-auth/react'
 import { AuthResponse } from '@/types/types'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store'
 
 const Navbar = () => {
     const [open,setOpen]=React.useState(false)
@@ -17,6 +19,9 @@ const Navbar = () => {
     const {data:sessionData,status}=useSession()
     const session=sessionData as unknown as AuthResponse
     const isLoggedIn = status === "authenticated";
+
+    const cartItems=useSelector((state:RootState)=>state.cart.items)
+    
     const nav=[
         {
             title:"Home",
@@ -83,7 +88,7 @@ const Navbar = () => {
                     
                     <div className='flex gap-8 items-center relative'>
                         <div className='bg-yellow-500 size-5 absolute top-[-4px] -right-[6px] rounded-full flex items-center justify-center p-2 text-white'>
-                            <p className='text-xs'>0</p>
+                            <p className='text-xs'>{cartItems.length}</p>
                         </div>
                         <Button variant='light' isIconOnly className='bg-transparent text-base text-primary underline underline-offset-4' startContent={<CiShoppingCart size={28} className='text-[#E8B86D]'/>}></Button>
                     </div>  

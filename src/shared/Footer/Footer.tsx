@@ -37,7 +37,7 @@ const Footer = () => {
                         <div className='text-black'>
                             <p className='font-medium text-lg'>Follow Us On</p>
                             <div className='flex gap-4 mt-2'>
-                                <Button isIconOnly size='sm' className='bg-primary text-white'>
+                                <Button isIconOnly size='sm' className='bg-blue-500 text-white'>
                                     <FiFacebook size={22} className='transition duration-300'/>
                                 </Button>
                                 <Button isIconOnly size='sm' className='bg-pink-400 text-white'>
