@@ -17,6 +17,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 const Navbar = () => {
     const [open, setOpen] = React.useState(false)
     const [signUpOpen, setSignUpOpen] = React.useState(false)
+
     const { data: sessionData, status } = useSession()
     const session = sessionData as unknown as AuthResponse
     const isLoggedIn = status === "authenticated";
@@ -61,6 +62,21 @@ const Navbar = () => {
         }
     ]
 
+    const dropdownProfile = [
+        {
+            title: "Profile",
+            link: "/profile"
+        },
+        {
+            title: "My Orders",
+            link: "/my-orders"
+        },
+        {
+            title: "Sign Out",
+            link: "/api/auth/signout"
+        },
+    ]
+
     const pathname = usePathname()
     const isActive = (path: string) => pathname === path
 
@@ -84,6 +100,7 @@ const Navbar = () => {
                                 <h1 className={`${stylishFont.className} text-2xl leading-5`}>Khadbari</h1>
                                 <p className='text-xs capitalize text-gray-500'>Rudraksha Suppliers</p>
                             </div>
+
                         </div>
                         <section className='flex items-center justify-center'>
                             <div className='flex gap-8'>
@@ -131,7 +148,11 @@ const Navbar = () => {
                             <Button variant='light' isIconOnly className='bg-transparent text-base text-primary underline underline-offset-4' startContent={<CiShoppingCart size={28} className='text-[#E8B86D]' />}></Button>
                             </Link>
                         </div>
-                        {isLoggedIn ? <div className='flex items-center gap-2'>
+                        {isLoggedIn ?
+                        
+                        <Dropdown>
+                        <DropdownTrigger>
+                        <div className='flex items-center gap-2 cursor-pointer'>
                             <Avatar
                                 color='warning'
                                 as="button"
@@ -142,7 +163,20 @@ const Navbar = () => {
                                 <p className='text-gray-600 capitalize'>{sessionData?.user?.name}</p>
                                 <p className='text-xs text-gray-400 lowercase'>{sessionData?.user?.email}</p>
                             </div>
+
                         </div>
+                        </DropdownTrigger>
+                        <DropdownMenu aria-label="More options">
+                                        {dropdownProfile.map((item) => (
+                                            <DropdownItem key={item.title}>
+                                                <Link href={item.link} className='w-full'>
+                                                    {item.title}
+                                                </Link>
+                                            </DropdownItem>
+                                        ))}
+                                    </DropdownMenu>
+                                </Dropdown>
+                         
                             :
                             <div className='flex gap-2 items-center'>
                                 <Button size='sm' className='text-white rounded-2xl bg-primary px-4' onPress={() => handleLogin()}>Login</Button>
