@@ -3,15 +3,7 @@ import React from 'react'
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import SharedTitle from '@/shared/SharedTitle/SharedTitle';
-import { 
-    FaClock, 
-    FaMedal, 
-    FaUsers, 
-    FaComments,
-    FaCalendarAlt,
-    FaPhone,
-    FaEnvelope 
-  } from "react-icons/fa";
+
 
 import { Accordion, AccordionItem } from "@nextui-org/react";
 
@@ -23,29 +15,7 @@ const FAQS = () => {
         transition: { duration: 0.5 },
       };
 
-      const benefits = [
-          {
-            icon: <FaMedal size={24} />,
-            title: "Expert Guidance",
-            description: "Get advice from certified Rudraksha experts with years of experience"
-          },
-          {
-            icon: <FaUsers size={24} />,
-            title: "Personalized Approach",
-            description: "Receive customized suggestions based on your specific needs"
-          },
-          {
-            icon: <FaComments size={24} />,
-            title: "Detailed Documentation",
-            description: "Get written recommendations and care instructions"
-          },
-          {
-            icon: <FaClock size={24} />,
-            title: "Flexible Scheduling",
-            description: "Book consultations at your convenience"
-          }
-        ];
-    
+      
       return (
         <div className="w-full">
           <motion.div

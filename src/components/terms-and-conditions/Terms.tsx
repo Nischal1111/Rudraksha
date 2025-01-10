@@ -44,7 +44,7 @@ const Terms = () => {
             <h1 className="text-2xl font-semibold">1. Introduction</h1>
             <p>These Terms and Conditions govern your use of our website, www.khadbari.com, and the purchase of products from our site. By accessing our website, you accept these terms in full. If you disagree with any part of these terms, please do not use our website.</p>
             <h1 className="text-2xl font-semibold">2. Use of the Website</h1>
-            <p>You must be at least 18 years old to use this website or have parental permission. You agree not to use the website for any unlawful purpose or in a way that infringes the rights of, restricts, or inhibits anyone else's use and enjoyment of the website.</p>
+            <p>You must be at least 18 years old to use this website or have parental permission. You agree not to use the website for any unlawful purpose or in a way that infringes the rights of, restricts, or inhibits anyone else&apos;s use and enjoyment of the website.</p>
             <h1 className="text-2xl font-semibold">3. Products</h1>
             <p>All products are subject to availability. We reserve the right to discontinue any product at any time without notice. We strive to ensure that product descriptions, prices, and availability information are accurate. However, errors may occur, and we reserve the right to correct them.</p>
             <h1 className="text-2xl font-semibold">4. Orders and Payments</h1>

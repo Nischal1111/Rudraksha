@@ -80,8 +80,8 @@ const Policy = () => {
           <div className='flex flex-col gap-4'>
             <h1 className='text-2xl font-semibold'>Customer Policies</h1>
             <ul className='list-inside list-disc'>
-              <li>Privacy Policy: We are committed to protecting our customers' personal information and ensuring a secure shopping experience.</li>
-              <li>Return and Refund Policy: Customers can return products within a specified period if they are not satisfied, subject to our return guidelines.</li>
+            <li>Privacy Policy: We are committed to protecting our customers&apos; personal information and ensuring a secure shopping experience.</li>
+            <li>Return and Refund Policy: Customers can return products within a specified period if they are not satisfied, subject to our return guidelines.</li>
               <li>Shipping Policy: We offer reliable shipping services with clear tracking options, ensuring timely delivery to Nepal and Indonesia.</li>
             </ul>
           </div>

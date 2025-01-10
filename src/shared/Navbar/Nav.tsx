@@ -13,8 +13,6 @@ import { AuthResponse } from '@/types/types'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
 import { IoIosArrowDown } from 'react-icons/io'
-import { set } from 'react-hook-form'
-import { div } from 'framer-motion/client'
 
 const Navbar = () => {
     const [open, setOpen] = React.useState(false)
