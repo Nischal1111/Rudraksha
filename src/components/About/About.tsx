@@ -17,6 +17,7 @@ import {
 import CountUp from 'react-countup';
 import { josefin } from '@/utils/font';
 import SharedTitle from '@/shared/SharedTitle/SharedTitle';
+import TeamSection from './TeamSection';
 
 const About = () => {
   const fadeInUp = {
@@ -65,7 +66,7 @@ const About = () => {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 flex items-center">
-          <div className="max-w-2xl ml-12 text-white">
+          <div className="max-w-3xl px-16 ml-12 text-white">
             <motion.h1 
               className="text-5xl font-bold mb-6"
               {...fadeInUp}
@@ -211,8 +212,8 @@ const About = () => {
                       <Image src={award.img} alt="award" height={1000} width={1000} className='w-full h-full object-cover rounded-lg'/>
                     </div>
                     <div className="flex gap-2 w-full">
-                      <div className="w-12 h-12 rounded-full flex items-center justify-center bg-white text-primary">
-                        <FaMedal size={26} />
+                      <div className="w-12 h-12 aspect-square rounded-full flex items-center justify-center bg-white text-primary">
+                        <FaMedal size={22} className="w-full h-full p-2" />
                       </div>
                       <div>
                         <h3 className="text-xl font-semibold mb-2">{award.title}</h3>
@@ -224,6 +225,7 @@ const About = () => {
               </div>
           </div>
         </motion.div>
+        <TeamSection/>
       </div>
     </div>
   );
