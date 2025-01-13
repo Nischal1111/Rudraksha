@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { stylishFont } from '@/utils/font'
 import Login from '../Login/Login'
 import Signup from '../SignUp/SignUp'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { AuthResponse } from '@/types/types'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
@@ -23,6 +23,8 @@ const Navbar = () => {
     const isLoggedIn = status === "authenticated";
 
     const cartItems = useSelector((state: RootState) => state.cart.items)
+
+   
 
     const nav = [
         {
@@ -62,20 +64,7 @@ const Navbar = () => {
         }
     ]
 
-    const dropdownProfile = [
-        {
-            title: "Profile",
-            link: "/profile"
-        },
-        {
-            title: "My Orders",
-            link: "/my-orders"
-        },
-        {
-            title: "Sign Out",
-            link: "/api/auth/signout"
-        },
-    ]
+
 
     const pathname = usePathname()
     const isActive = (path: string) => pathname === path
@@ -167,20 +156,27 @@ const Navbar = () => {
                         </div>
                         </DropdownTrigger>
                         <DropdownMenu aria-label="More options">
-                                        {dropdownProfile.map((item) => (
-                                            <DropdownItem key={item.title}>
-                                                <Link href={item.link} className='w-full'>
-                                                    {item.title}
+                                            <DropdownItem key="Profile">
+                                                <Link href="/profile" className='w-full'>
+                                                    Profile
                                                 </Link>
                                             </DropdownItem>
-                                        ))}
+                                            <DropdownItem key="My Orders">
+                                                <Link href="/my-orders" className='w-full'>
+                                                    My Orders
+                                                </Link>
+                                            </DropdownItem>
+                                        <DropdownItem onClick={() => signOut()}>
+                                            
+                                            Sign out
+                                            </DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
                          
                             :
                             <div className='flex gap-2 items-center'>
                                 <Button size='sm' className='text-white rounded-2xl bg-primary px-4' onPress={() => handleLogin()}>Login</Button>
-                                /
+                                
                                 <Button variant='light' className='text-primary hover:underline hover:underline-offset-2 cursor-pointer' onPress={() => handleSign()}>Signup</Button>
                             </div>
                         }
