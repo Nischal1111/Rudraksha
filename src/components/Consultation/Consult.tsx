@@ -18,6 +18,7 @@ import {
   FaEnvelope 
 } from "react-icons/fa";
 import Image from 'next/image';
+import SharedTitle from '@/shared/SharedTitle/SharedTitle';
 
 const ConsultationPage = () => {
   
@@ -84,7 +85,7 @@ const ConsultationPage = () => {
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <motion.div 
             {...fadeInUp}
             transition={{ delay: 0.3 }}
@@ -179,8 +180,8 @@ const ConsultationPage = () => {
           </motion.div>
         </div>
       </div>
-
-      <div className="w-full py-8">
+      
+      <div className="w-full mt-34">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div 
             {...fadeInUp}
@@ -217,6 +218,17 @@ const ConsultationPage = () => {
             </Accordion>
           </div>
         </div>
+      </div>
+
+      <div className="w-full lg:h-[80vh] h-[70vh] px-24 mb-12">
+        <SharedTitle title="Visit Us At" classname='text-5xl'/>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3542.4569905908816!2d87.2120599!3d27.392668999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e8c7002a48f253%3A0x879bd1fd194f42c3!2sSankhuwasabha%20khandbari!5e0!3m2!1sen!2snp!4v1736881633500!5m2!1sen!2snp" 
+                  width="100%"
+                    height="100%"
+                    style={{border:"none",outline:"none"}}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                />
       </div>
     </div>
   );

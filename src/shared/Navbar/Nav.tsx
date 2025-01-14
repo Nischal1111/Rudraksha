@@ -129,14 +129,17 @@ const Navbar = () => {
                     <div className='flex items-center gap-8'>
                         <Button className='bg-primary' size='md' isIconOnly><CiSearch size={24} className='text-white' /></Button>
 
-                        <div className='flex gap-8 items-center relative'>
-                            <div className='bg-yellow-500 size-5 absolute top-[-4px] -right-[6px] rounded-full flex items-center justify-center p-2 text-white'>
-                                <p className='text-xs'>{cartItems.length}</p>
+                        {isLoggedIn && 
+                            <div className='flex gap-8 items-center relative'>
+                                <div className='bg-yellow-500 size-5 absolute top-[-4px] -right-[6px] rounded-full flex items-center justify-center p-2 text-white'>
+                                    <p className='text-xs'>{cartItems.length}</p>
+                                </div>
+                                    <Link href={"/checkout"}>
+                                        <Button variant='light' isIconOnly className='bg-transparent text-base text-primary underline underline-offset-4' startContent={<CiShoppingCart size={28} className='text-[#E8B86D]' />}></Button>
+                                    </Link>
+                                
                             </div>
-                            <Link href={"/checkout"}>
-                            <Button variant='light' isIconOnly className='bg-transparent text-base text-primary underline underline-offset-4' startContent={<CiShoppingCart size={28} className='text-[#E8B86D]' />}></Button>
-                            </Link>
-                        </div>
+                        }
                         {isLoggedIn ?
                         
                         <Dropdown>
@@ -167,12 +170,10 @@ const Navbar = () => {
                                                 </Link>
                                             </DropdownItem>
                                         <DropdownItem onClick={() => signOut()}>
-                                            
                                             Sign out
                                             </DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
-                         
                             :
                             <div className='flex gap-2 items-center'>
                                 <Button size='sm' className='text-white rounded-2xl bg-primary px-4' onPress={() => handleLogin()}>Login</Button>

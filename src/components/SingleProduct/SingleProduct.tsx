@@ -1,156 +1,154 @@
 "use client"
-import { BreadcrumbItem, Breadcrumbs, Button } from '@nextui-org/react'
-import React, { useEffect, useRef, useState } from 'react'
-import { FaChevronLeft, FaChevronRight, FaTrash } from 'react-icons/fa';
-import Slider, { CustomArrowProps } from 'react-slick'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React, { useEffect, useRef, useState } from 'react';
+import { 
+  BreadcrumbItem, 
+  Breadcrumbs, 
+  Button, 
+  Tabs, 
+  Tab,
+  ScrollShadow,
+  Chip
+} from '@nextui-org/react';
+import Slider from 'react-slick';
 import Image from 'next/image';
-import { josefin } from '@/utils/font';
-import { CiCircleCheck } from 'react-icons/ci';
-import SharedTitle from '@/shared/SharedTitle/SharedTitle';
-import { IoBagAddOutline } from 'react-icons/io5';
-import { IoMdCall } from 'react-icons/io';
-import { useQuery } from '@tanstack/react-query';
-import { getSingleProduct } from '@/services/products';
-import Loader from '@/shared/Loader';
 import { useParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
+import { FaChevronLeft, FaChevronRight, FaTrash, FaStar, FaShippingFast } from 'react-icons/fa';
+import { IoBagAddOutline } from 'react-icons/io5';
+import { IoMdCall } from 'react-icons/io';
+import { MdVerified, MdSecurity } from 'react-icons/md';
+import { RiCustomerService2Fill } from 'react-icons/ri';
+import { josefin } from '@/utils/font';
 import { RootState } from '@/store';
 import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
+import { getSingleProduct } from '@/services/products';
+import Loader from '@/shared/Loader';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-interface CustomArrowComponentProps extends CustomArrowProps {
-    onClick?: () => void;
+interface BenefitCardProps {
+  icon: React.ElementType;
+  title: string;
+  description: string;
 }
 
-const CustomPrevArrow: React.FC<CustomArrowComponentProps> = ({ onClick }) => (
-    <Button
-        isIconOnly
-        onClick={onClick}
-        className="absolute left-2 top-1/2 text-white -translate-y-1/2 z-10 bg-primary/40 hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
-    >
-        <FaChevronLeft />
-    </Button>
-)
+interface CustomArrowProps {
+  onClick?: () => void;
+}
 
-const CustomNextArrow: React.FC<CustomArrowComponentProps> = ({ onClick }) => (
-    <Button
-        isIconOnly
-        onClick={onClick}
-        className="absolute right-2 top-1/2 text-white -translate-y-1/2 z-10 bg-primary/40 hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
-    >
-        <FaChevronRight/>
-    </Button>
-)
+const CustomPrevArrow: React.FC<CustomArrowProps> = ({ onClick }) => (
+  <Button
+    isIconOnly
+    onClick={onClick}
+    className="absolute left-2 top-1/2 text-white -translate-y-1/2 z-10 bg-primary/40 hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
+  >
+    <FaChevronLeft />
+  </Button>
+);
 
-const SingleProduct = () => {
+const CustomNextArrow: React.FC<CustomArrowProps> = ({ onClick }) => (
+  <Button
+    isIconOnly
+    onClick={onClick}
+    className="absolute right-2 top-1/2 text-white -translate-y-1/2 z-10 bg-primary/40 hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
+  >
+    <FaChevronRight />
+  </Button>
+);
+
+const BenefitCard: React.FC<BenefitCardProps> = ({ icon: Icon, title, description }) => (
+  <div className="bg-white rounded-lg shadow-sm p-4">
+    <div className="flex items-start gap-4">
+      <div className="p-2 bg-primary/10 rounded-lg">
+        <Icon size={24} className="text-primary" />
+      </div>
+      <div>
+        <h3 className="text-lg font-semibold mb-2">{title}</h3>
+        <p className="text-sm text-gray-600">{description}</p>
+      </div>
+    </div>
+  </div>
+);
+
+const SingleProduct: React.FC = () => {
   const [nav1, setNav1] = useState<Slider | null>(null);
   const [nav2, setNav2] = useState<Slider | null>(null);
+  const [selectedTab, setSelectedTab] = useState<string>("details");
   const sliderRef1 = useRef<Slider | null>(null);
   const sliderRef2 = useRef<Slider | null>(null);
-  const id=useParams().id as string
+  
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const isInCart = cartItems.find(item => item._id === id);
 
-  const dispatch=useDispatch()
-  const cartItems=useSelector((state:RootState)=>state.cart.items)
-
-  const isInCart=cartItems.find(item=>item._id===id)
+  const { data: singleProduct, isLoading } = useQuery({
+    queryKey: ['singleProduct', id],
+    queryFn: () => getSingleProduct(id as string),
+    enabled: !!id
+  });
 
   const handleCart = () => {
+    if (!singleProduct?.product) return;
+    
     if (isInCart) {
-      dispatch(removeFromCart({ _id: singleProduct?.product?._id }))
+      dispatch(removeFromCart({ _id: singleProduct.product._id }));
     } else {
       dispatch(addToCart({
-        _id: singleProduct?.product?._id,
-        title: singleProduct?.product?.title,
-        price: singleProduct?.product?.price,
-        img: singleProduct?.product?.img,
+        _id: singleProduct.product._id,
+        title: singleProduct.product.title,
+        price: singleProduct.product.price,
+        img: singleProduct.product.img[0],
         quantity: 1,
-        description: singleProduct?.product?.description,
-        faces: singleProduct?.product?.faces,
-        country: singleProduct?.product?.country,
-        size: singleProduct?.product?.size
-      }))
+        description: singleProduct.product.description,
+        faces: singleProduct.product.faces,
+        country: singleProduct.product.country,
+        size: singleProduct.product.size
+      }));
     }
-  }
+  };
 
-  const settings = {
-        infinite: true,
-        speed: 500,
-        prevArrow: <CustomPrevArrow />,
-        nextArrow: <CustomNextArrow />,
-        autoplay:true,
-        pauseOnHover: true,
-        autoplaySpeed:4000,
-        responsive: [
-            {
-                breakpoint: 1280,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    };
-  const settings2 = {
-        infinite: true,
-        speed: 500,
-        arrows: false,
-        autoplay:true,
-        pauseOnHover: true,
-        autoplaySpeed:4000,
-        responsive: [
-            {
-                breakpoint: 1280,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    };
+  const sliderSettings = {
+    infinite: true,
+    speed: 500,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+    autoplay: true,
+    pauseOnHover: true,
+    autoplaySpeed: 4000,
+  };
 
-  const {data:singleProduct,isLoading}=useQuery({
-    queryKey: ['singleProduct',id],
-    queryFn:()=>getSingleProduct(id),
-    enabled:!!id
-  })
+  const thumbnailSettings = {
+    ...sliderSettings,
+    slidesToShow: 4,
+    arrows: false,
+    focusOnSelect: true,
+  };
 
-  const details=[
+  const benefits: BenefitCardProps[] = [
     {
-      title:"Size",
-      value:`${singleProduct?.product?.size}`
+      icon: MdVerified,
+      title: "100% Authentic",
+      description: "Every Rudraksha is verified and certified by experts"
     },
     {
-      title:"Weight",
-      value:`${singleProduct?.product?.weight}`
-      },
-      {
-        title:"Country",
-        value:`${singleProduct?.product?.country}`
-        },
-        {
-          title:"Faces",
-          value:`${singleProduct?.product?.faces} faces`
-          },
-          {
-            title:"Price",
-            value:`$${singleProduct?.product?.price}`
-          }
-  ]
+      icon: FaShippingFast,
+      title: "Fast Shipping",
+      description: "Worldwide shipping with tracking available"
+    },
+    {
+      icon: MdSecurity,
+      title: "Secure Payment",
+      description: "Multiple secure payment options available"
+    },
+    {
+      icon: RiCustomerService2Fill,
+      title: "Expert Support",
+      description: "24/7 customer support for all your queries"
+    }
+  ];
 
   useEffect(() => {
     if (sliderRef1.current && sliderRef2.current) {
@@ -159,24 +157,32 @@ const SingleProduct = () => {
     }
   }, []);
 
-  if(isLoading)return <Loader/>
+  const handleTabChange = (key: React.Key) => {
+    setSelectedTab(String(key));
+  };
+
+  if (isLoading) return <Loader />;
+  if (!singleProduct?.product) return null;
 
   return (
-    <div className='flex flex-col px-32 py-4'>
-        <Breadcrumbs 
-          itemClasses={{
-            item: "text-gray-600 data-[current=true]:text-black",
-            separator: "text-black/40",
-          }}
-        >
-          <BreadcrumbItem href='/'>Home</BreadcrumbItem>
-          <BreadcrumbItem href='/rudraksha'>Products</BreadcrumbItem>
-          <BreadcrumbItem className='text-primary opacity-[1]'>{singleProduct?.product?.title}</BreadcrumbItem>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className=""
+    >
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <Breadcrumbs className="mb-8">
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/rudraksha">Products</BreadcrumbItem>
+          <BreadcrumbItem className="text-primary">{singleProduct.product.title}</BreadcrumbItem>
         </Breadcrumbs>
-        <div className='w-full flex my-6 gap-8'>
-          <div className='w-1/2'>
-            <Slider 
-              {...settings}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Product Images */}
+          <div className="space-y-4">
+            <div className="overflow-hidden">
+              <Slider 
+              {...sliderSettings}
               asNavFor={nav2 || undefined} 
               ref={(slider) => {
                 sliderRef1.current = slider;
@@ -190,12 +196,15 @@ const SingleProduct = () => {
                 </div>
               ))}
             </Slider>
-            <Slider
+            </div>
+            
+            <div className="overflow-hidden">
+              <Slider
               asNavFor={nav1 || undefined}
               ref={(slider) => {
                 sliderRef2.current = slider;
               }}
-              {...settings2}
+              {...thumbnailSettings}
               slidesToShow={4}
               swipeToSlide={true}
               focusOnSelect={true}
@@ -208,78 +217,113 @@ const SingleProduct = () => {
                 </div>
               ))}
             </Slider>
+            </div>
           </div>
-          <div className='w-1/2 py-4'>
-              <h1 className={`${josefin.className} text-4xl`}>{singleProduct?.product?.title}</h1>
-              <p className='my-6 text-3xl text-primary'>${singleProduct?.product?.price}</p>
-              <p className='text-justify text-sm'><span className='text-sm font-medium mb-2'>Description:</span><br />
-              {singleProduct?.product?.description}
-              </p>
-              <p className='flex gap-2 items-center my-4'><CiCircleCheck className='text-primary' size={25}/>In stock - 56 left - Ready to ship</p>
+
+          {/* Product Info */}
+          <div className="space-y-6">
+            <div>
+              <h1 className={`${josefin.className} text-4xl font-bold mb-4`}>
+                {singleProduct.product.title}
+              </h1>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-3xl font-bold text-primary">
+                  ${singleProduct.product.price}
+                </span>
+                <Chip color="success" variant="flat">
+                  In Stock
+                </Chip>
+              </div>
+            </div>
+
+            <Tabs 
+              selectedKey={selectedTab} 
+              onSelectionChange={handleTabChange}
+              className="mb-6"
+              color='primary'
+              variant='underlined'
+              size='lg'
+            >
+              <Tab key="details" title="Details">
+                <ScrollShadow className="h-40">
+                  <p className="text-gray-600 leading-relaxed">
+                    {singleProduct.product.description}
+                  </p>
+                </ScrollShadow>
+              </Tab>
+              <Tab key="specifications" title="Specifications">
+                <div className="grid grid-cols-2 gap-4">
+                  {Object.entries({
+                    Size: singleProduct.product.size,
+                    Weight: singleProduct.product.weight,
+                    Country: singleProduct.product.country,
+                    Faces: `${singleProduct.product.faces} faces`,
+                  }).map(([key, value]) => (
+                    <div key={key} className="flex justify-between p-2 bg-gray-50 rounded">
+                      <span className="font-medium">{key}</span>
+                      <span>{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </Tab>
+              <Tab key="benefits" title="Benefits">
+                <ScrollShadow className="h-40">
+                  <ul className="list-disc pl-4 space-y-2">
+                    <li>Enhances spiritual growth and meditation</li>
+                    <li>Brings peace and harmony</li>
+                    <li>Promotes positive energy</li>
+                    <li>Helps in stress relief</li>
+                  </ul>
+                </ScrollShadow>
+              </Tab>
+            </Tabs>
+
+            <div className="space-y-4">
               <Button 
-                  startContent={isInCart ? <FaTrash className='text-white' size={16}/> : <IoBagAddOutline className='text-white' size={20}/>} 
-                  className={`${isInCart ? 'bg-red-600' : 'bg-primary'} flex items-center rounded-sm px-8 py-0 my-8 text-white`}
-                  onClick={handleCart}
-                >
-                  {isInCart ? 'Remove from cart' : 'Add to cart'}
+                className={`w-full rounded-sm ${isInCart ? 'bg-red-600' : 'bg-primary'} text-white`}
+                startContent={isInCart ? <FaTrash /> : <IoBagAddOutline />}
+                size="lg"
+                onClick={handleCart}
+              >
+                {isInCart ? 'Remove from cart' : 'Add to cart'}
               </Button>
-              <div className="w-full relative shadow-md flex items-center justify-between py-8 px-6 rounded-sm bg-gray-100">
-                <div className="absolute inset-0">
-                  <Image 
-                    src="https://images.unsplash.com/photo-1650809652935-2e5002ba40bf?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-                    alt="bg-image" 
-                    layout="fill" 
-                    objectFit="cover" 
-                    className="z-0"
-                  />
-                  <div className="absolute inset-0 bg-black opacity-40"></div>
-                </div>
-                <div className="relative z-10 flex items-center justify-between w-full">
-                  <h1 className={`${josefin.className} text-white text-2xl font-semibold`}>Need help in selection?</h1>
-                  <Button startContent={<IoMdCall className='text-white' size={20}/>} className="bg-primary rounded-sm text-sm px-6 py-4 text-white ml-4">Consult with us</Button>
-                </div>
-              </div>
+
+              <Button
+                className="w-full rounded-sm bg-primary/10 text-primary"
+                startContent={<IoMdCall />}
+                size="lg"
+              >
+                Consult with Expert
+              </Button>
+            </div>
           </div>
         </div>
 
-        <div className='my-2 w-full flex items-center justify-between bg-primary/10 px-20 py-6'>
-              <div className='border border-primary  rounded-3xl px-4 py-2 text-sm'>
-                <h1>Originated in Nepal</h1>
-              </div>
-              <div className='border border-primary  rounded-3xl px-6 py-2 text-sm'>
-                <h1>IRL Certificate</h1>
-              </div>
-              <div className='border border-primary rounded-3xl px-6 py-2 text-sm'>
-                <h1>Authenticity Guaranteed</h1>
-              </div>
-              <div className='border border-primary rounded-3xl px-6 py-2 text-sm'>
-                <h1>Expert Rating</h1>
-              </div>
-              <div className='border border-primary rounded-3xl px-6 py-2 text-sm'>
-                <h1>100% Secured Payment</h1>
-              </div>
+        {/* Benefits Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-12">
+          {benefits.map((benefit, index) => (
+            <BenefitCard key={index} {...benefit} />
+          ))}
         </div>
 
-        <div className='my-4 w-full bg-primary/10 px-32 pb-12'>
-              <div className='flex items-center justify-center w-full'>
-                <SharedTitle title='Product Specifications' classname='text-3xl'/>
+        {/* Related Products Section */}
+        <div className="my-12">
+          <h2 className={`${josefin.className} text-2xl font-bold mb-6`}>
+            Related Products
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((product) => (
+              <div key={product} className="bg-white rounded-lg shadow-md p-4">
+                <div className="aspect-square mb-4 bg-gray-100 rounded-lg" />
+                <h3 className="font-semibold mb-2">Similar Rudraksha</h3>
+                <p className="text-primary font-bold">$99.99</p>
               </div>
-              <div className='grid grid-cols-2 gap-x-20 gap-y-4'>
-                  {
-                    details.map((item)=>{
-                      return(
-                          <div key={item.value} className='w-full flex items-center justify-between font-semibold'>
-                            <h1 className='font-normal'>{item.title}</h1>
-                            <h1>{item.value}</h1>
-                        </div>
-                      )
-                    })
-                  }
-                  
-              </div>
+            ))}
+          </div>
         </div>
-    </div>
-  )
-}
+      </div>
+    </motion.div>
+  );
+};
 
-export default SingleProduct
+export default SingleProduct;
