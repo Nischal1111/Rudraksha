@@ -27,6 +27,8 @@ import { getSingleProduct } from '@/services/products';
 import Loader from '@/shared/Loader';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import RelatedProducts from './RelatedProducts';
+import Link from 'next/link';
 
 interface BenefitCardProps {
   icon: React.ElementType;
@@ -174,7 +176,7 @@ const SingleProduct: React.FC = () => {
         <Breadcrumbs className="mb-8">
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
           <BreadcrumbItem href="/rudraksha">Products</BreadcrumbItem>
-          <BreadcrumbItem className="text-primary">{singleProduct.product.title}</BreadcrumbItem>
+          <BreadcrumbItem className="!text-black">{singleProduct.product.title}</BreadcrumbItem>
         </Breadcrumbs>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -308,18 +310,15 @@ const SingleProduct: React.FC = () => {
 
         {/* Related Products Section */}
         <div className="my-12">
-          <h2 className={`${josefin.className} text-2xl font-bold mb-6`}>
+          <h2 className={`${josefin.className} text-2xl font-bold mb-6 text-primary`}>
             Related Products
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((product) => (
-              <div key={product} className="bg-white rounded-lg shadow-md p-4">
-                <div className="aspect-square mb-4 bg-gray-100 rounded-lg" />
-                <h3 className="font-semibold mb-2">Similar Rudraksha</h3>
-                <p className="text-primary font-bold">$99.99</p>
-              </div>
-            ))}
-          </div>
+          <RelatedProducts id={id}/>
+          <Link href={'/rudraksha'} className='w-full flex items-center justify-center my-12'>
+            <Button
+              className="w-fit px-8 rounded-sm bg-primary text-white">View Products
+            </Button>
+          </Link>
         </div>
       </div>
     </motion.div>

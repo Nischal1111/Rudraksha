@@ -86,7 +86,7 @@ const Navbar = () => {
                                 <Image src={'/logo.webp'} alt='logo' height={1000} width={1000} className='object-cover h-full w-full rounded-full' />
                             </section>
                             <div className='flex flex-col -gap-2'>
-                                <h1 className={`${stylishFont.className} text-2xl leading-5`}>Khadbari</h1>
+                                <h1 className={`${stylishFont.className} text-2xl leading-5`}>Khandbari</h1>
                                 <p className='text-xs capitalize text-gray-500'>Rudraksha Suppliers</p>
                             </div>
 

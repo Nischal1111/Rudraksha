@@ -8,8 +8,10 @@ import Link from 'next/link';
 import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Pagination, Chip, Slider, CheckboxGroup, Checkbox, Accordion, AccordionItem } from '@nextui-org/react';
 import { FiFilter, FiChevronDown, FiArrowRight } from 'react-icons/fi';
 import { josefin } from '@/utils/font';
+import CategoryProducts from './Category';
+import SharedTitle from '@/shared/SharedTitle/SharedTitle';
 
-interface Product {
+export interface Product {
   _id: string;
   title: string;
   size: string;
@@ -18,9 +20,10 @@ interface Product {
   faces: string;
   country: string;
   weight: string;
+  category:string
 }
 
-interface ProductsData {
+export interface ProductsData {
   products: Product[];
   pagination: {
     currentPage: number;
@@ -204,7 +207,7 @@ const Products = () => {
               </Button>
 
               <div className="flex items-center justify-between w-full gap-4 ml-auto">
-                <h1 className={`text-primary text-4xl ${josefin.className}`}>Our Collection</h1>
+                <h1 className={`text-primary font-bold text-4xl ${josefin.className}`}>Our Collection</h1>
                 <Dropdown>
                   <DropdownTrigger>
                     <Button 
@@ -283,9 +286,7 @@ const Products = () => {
 
       <div className='w-full px-16 mt-12'>
         <div className="mx-auto text-center mb-12">
-          <h2 className={`text-4xl font-bold text-primary mb-4 ${josefin.className}`}>
-            Special Collection
-          </h2>
+          <SharedTitle title='Our Special Products'/>
           <p className="text-gray-600 w-full">
             Discover our carefully curated selection of premium Rudraksha beads, 
             handpicked for their exceptional quality and spiritual significance. 
@@ -316,6 +317,10 @@ const Products = () => {
           ))}
         </div>
       </div>
+      <div className='w-full mt-32'>
+        <CategoryProducts/>
+      </div>
+
     </div>
   );
 };
