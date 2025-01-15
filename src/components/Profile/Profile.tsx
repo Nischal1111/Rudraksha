@@ -35,7 +35,7 @@ type PasswordFields = z.infer<typeof passwordSchema>;
 const Profile = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [isChangePassword, setIsChangePassword] = useState(false);
-  const { data: sessionData, status ,update} = useSession();
+  const { data: sessionData, status} = useSession();
   const session = sessionData as unknown as AuthResponse;
 
   // Toggle visibility for password fields
@@ -61,7 +61,7 @@ const Profile = () => {
     },
   });
 
-  const { register: registerPassword, handleSubmit: handleSubmitPassword, formState: { errors: passwordErrors }, watch } = useForm<PasswordFields>({
+  const { register: registerPassword, handleSubmit: handleSubmitPassword, formState: { errors: passwordErrors } } = useForm<PasswordFields>({
     resolver: zodResolver(passwordSchema),
   });
 
@@ -72,7 +72,7 @@ const Profile = () => {
       toast.success("Password changed successfully.");
       setIsChangePassword(false);
     },
-    onError: (error: any) => {
+    onError: (error: any) => { //eslint-disable-line @typescript-eslint/no-explicit-any
       const message = error.response?.data?.error?.message || "An error occurred while changing the password.";
       toast.error(message);
     },
@@ -81,12 +81,12 @@ const Profile = () => {
   // Mutation for updating profile
   const { mutate: mutateProfile, isPending: isProfilePending } = useMutation({
     mutationFn: (data: Partial<ProfileFields>) => updateProfile(session?.user?.id || "", data),
-    onSuccess: async (updatedData) => {
+    onSuccess: async () => {
       toast.success("Profile updated successfully.");
       setIsEdit(false);
       
     },
-    onError: (error: any) => {
+    onError: (error: any) => { //eslint-disable-line @typescript-eslint/no-explicit-any
       const message = error.response?.data?.error?.message || "An error occurred while updating the profile.";
       toast.error(message);
     },

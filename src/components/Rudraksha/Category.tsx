@@ -8,7 +8,6 @@ import { useQuery } from '@tanstack/react-query'
 import { Product } from './Rudraksha'
 import Loader from '@/shared/Loader'
 import Link from 'next/link'
-import { FiArrowRight } from 'react-icons/fi'
 
 const CategoryProducts = () => {
     const categories = ['Bracelet', 'necklace', 'Mala']

@@ -62,7 +62,7 @@ const Products = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  if (isLoading) return <Loader />;
+  if (isLoading || specialLoading) return <Loader />;
 
   // Filter options
   const faces = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'];
@@ -139,7 +139,7 @@ const Products = () => {
               >
                 <CheckboxGroup 
                   value={selectedFaces} 
-                  onChange={setSelectedFaces as any} 
+                  onChange={setSelectedFaces as any} //eslint-disable-line @typescript-eslint/no-explicit-any
                   className="gap-1"
                   classNames={{
                     label: "text-black"
@@ -158,7 +158,7 @@ const Products = () => {
               >
                 <CheckboxGroup 
                   value={selectedSizes} 
-                  onChange={setSelectedSizes as any} 
+                  onChange={setSelectedSizes as any} //eslint-disable-line @typescript-eslint/no-explicit-any
                   className="gap-1"
                   classNames={{
                     label: "text-black"
@@ -179,7 +179,7 @@ const Products = () => {
               >
                 <CheckboxGroup 
                   value={selectedCountries} 
-                  onChange={setSelectedCountries as any} 
+                  onChange={setSelectedCountries as any}  //eslint-disable-line @typescript-eslint/no-explicit-any
                   className="gap-1"
                   classNames={{
                     label: "text-black"

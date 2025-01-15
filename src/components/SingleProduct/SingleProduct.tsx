@@ -15,7 +15,7 @@ import { useParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { FaChevronLeft, FaChevronRight, FaTrash, FaStar, FaShippingFast } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaTrash, FaShippingFast } from 'react-icons/fa';
 import { IoBagAddOutline } from 'react-icons/io5';
 import { IoMdCall } from 'react-icons/io';
 import { MdVerified, MdSecurity } from 'react-icons/md';
