@@ -2,11 +2,12 @@
 import SharedTitle from '@/shared/SharedTitle/SharedTitle'
 import { generateStars } from '@/utils/generateStars';
 import { Avatar, Button } from '@nextui-org/react';
-import React from 'react'
+import React, { useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Slider, { CustomArrowProps } from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ReviewModal from './ReviewModal';
 
 
 interface CustomArrowComponentProps extends CustomArrowProps {
@@ -65,6 +66,11 @@ const Reviews = () => {
             }
         ]
     };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleOpenModal = (): void => setIsModalOpen(true);
+    const handleCloseModal = (): void => setIsModalOpen(false);
 
     const reviews = [
             {
@@ -167,6 +173,7 @@ const Reviews = () => {
 
     return (
         <div className="w-full">
+            <ReviewModal isOpen={isModalOpen} onClose={handleCloseModal} />
             <div className="px-4 md:px-16 mb-12">
                 <SharedTitle title="Reviews" />
                 <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-start md:items-center justify-between">
@@ -177,7 +184,7 @@ const Reviews = () => {
                             Share your review and let your voice guide others in discovering the power of rudraksha.
                         </p>
                     </div>
-                    <Button className="px-12 rounded-sm bg-primary text-white hover:bg-primary/90">
+                    <Button onPress={handleOpenModal} className="px-12 rounded-sm bg-primary text-white hover:bg-primary/90">
                         Leave a review
                     </Button>
                 </div>

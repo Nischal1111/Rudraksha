@@ -7,6 +7,7 @@ import { Button, Divider } from '@nextui-org/react';
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 import Image from 'next/image';
 import { josefin } from '@/utils/font';
+import { getValidImageUrl } from '@/utils/imageUtils';
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -44,10 +45,14 @@ const Checkout = () => {
                   {/* Product Image */}
                   <div className="relative w-24 h-24 flex-shrink-0">
                     <Image
-                      src={item.img[0]}
+                      src={getValidImageUrl(Array.isArray(item.img) ? item.img[0] : item.img)}
                       alt={item.title}
                       fill
                       className="object-cover rounded-lg"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/placeholder-image.jpg';
+                      }}
                     />
                   </div>
 
@@ -55,8 +60,13 @@ const Checkout = () => {
                   <div className="flex-1">
                     <h2 className="text-lg font-semibold">{item.title}</h2>
                     <p className="text-sm text-gray-600 text-justify my-2">
-                      {item.description.slice(0, 100)}...
+                      {item.description ? `${item.description.slice(0, 100)}...` : 'No description available'}
                     </p>
+                    <div className="flex flex-wrap gap-2 text-sm text-gray-500">
+                      {item.faces && <span>Faces: {item.faces}</span>}
+                      {item.country && <span>• Country: {item.country}</span>}
+                      {item.size && <span>• Size: {item.size}</span>}
+                    </div>
                   </div>
 
                   {/* Quantity Controls */}
@@ -68,9 +78,9 @@ const Checkout = () => {
                       onClick={() => handleQuantityChange(item._id, item.quantity - 1)}
                       disabled={item.quantity <= 1}
                     >
-                      <FaMinus />
+                      <FaMinus className="h-3 w-3" />
                     </Button>
-                    <div className='rounded-md w-10 h-10 flex items-center justify-center bg-gray-200'>
+                    <div className="rounded-md w-10 h-10 flex items-center justify-center bg-gray-200">
                       <p className="text-sm font-bold">{item.quantity}</p>
                     </div>
                     <Button
@@ -79,7 +89,7 @@ const Checkout = () => {
                       size="sm"
                       onClick={() => handleQuantityChange(item._id, item.quantity + 1)}
                     >
-                      <FaPlus />
+                      <FaPlus className="h-3 w-3" />
                     </Button>
                   </div>
 
@@ -92,7 +102,7 @@ const Checkout = () => {
                       color="danger"
                       onClick={() => handleRemoveItem(item._id)}
                     >
-                      <FaTrash />
+                      <FaTrash className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
@@ -110,7 +120,7 @@ const Checkout = () => {
         </div>
 
         {/* Order Summary */}
-        <div className="bg-gray-50 p-6 rounded-lg">
+        <div className="bg-gray-50 p-6 rounded-lg h-fit">
           <h2 className={`${josefin.className} text-xl font-bold mb-4`}>Order Summary</h2>
           <Divider className="my-4" />
           <div className="space-y-4">

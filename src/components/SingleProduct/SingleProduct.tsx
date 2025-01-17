@@ -29,6 +29,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import RelatedProducts from './RelatedProducts';
 import Link from 'next/link';
+import { getValidImageUrl } from '@/utils/imageUtils';
 
 interface BenefitCardProps {
   icon: React.ElementType;
@@ -184,41 +185,61 @@ const SingleProduct: React.FC = () => {
           <div className="space-y-4">
             <div className="overflow-hidden">
               <Slider 
-              {...sliderSettings}
-              asNavFor={nav2 || undefined} 
-              ref={(slider) => {
-                sliderRef1.current = slider;
-              }}
-            >
-              {singleProduct?.product?.img.map((image:string,index:number)=>(     
-                <div className='px-0' key={index}>
-                  <div className='h-[400px]'>
-                    <Image src={image} alt='rud' height={1000} width={1000} className='object-cover w-full h-full'/>
+                {...sliderSettings}
+                asNavFor={nav2 || undefined} 
+                ref={(slider) => {
+                  sliderRef1.current = slider;
+                }}
+              >
+                {singleProduct?.product?.img.map((image: string, index: number) => (     
+                  <div className='px-0' key={index}>
+                    <div className='h-[400px]'>
+                      <Image 
+                        src={getValidImageUrl(image)} 
+                        alt={`${singleProduct.product.title} - Image ${index + 1}`}
+                        height={1000} 
+                        width={1000} 
+                        className='object-cover w-full h-full'
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/placeholder-image.jpg';
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
-            </Slider>
+                ))}
+              </Slider>
             </div>
             
             <div className="overflow-hidden">
               <Slider
-              asNavFor={nav1 || undefined}
-              ref={(slider) => {
-                sliderRef2.current = slider;
-              }}
-              {...thumbnailSettings}
-              slidesToShow={4}
-              swipeToSlide={true}
-              focusOnSelect={true}
-            >
-              {singleProduct?.product?.img.map((image:string,index:number)=>(
-                <div className='px-1' key={index}>
-                  <div className='h-[120px]'>
-                    <Image src={image} alt='rud' height={1000} width={1000} className='object-cover w-full h-full'/>
+                asNavFor={nav1 || undefined}
+                ref={(slider) => {
+                  sliderRef2.current = slider;
+                }}
+                {...thumbnailSettings}
+                slidesToShow={4}
+                swipeToSlide={true}
+                focusOnSelect={true}
+              >
+                {singleProduct?.product?.img.map((image: string, index: number) => (
+                  <div className='px-1' key={index}>
+                    <div className='h-[120px]'>
+                      <Image 
+                        src={getValidImageUrl(image)} 
+                        alt={`${singleProduct.product.title} - Thumbnail ${index + 1}`}
+                        height={1000} 
+                        width={1000} 
+                        className='object-cover w-full h-full'
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/placeholder-image.jpg';
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
-            </Slider>
+                ))}
+              </Slider>
             </div>
           </div>
 
