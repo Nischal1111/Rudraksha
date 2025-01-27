@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { getAllProducts, getSpecialProduct } from '@/services/products';
+import {getByCategory, getSpecialProduct } from '@/services/products';
 import Loader from '@/shared/Loader';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Pagination, Chip, Slider, CheckboxGroup, Checkbox, Accordion, AccordionItem } from '@nextui-org/react';
 import { FiFilter, FiChevronDown, FiArrowRight } from 'react-icons/fi';
 import { josefin } from '@/utils/font';
-import CategoryProducts from './Category';
 import SharedTitle from '@/shared/SharedTitle/SharedTitle';
 
 export interface Product {
@@ -45,7 +44,7 @@ const Products = () => {
 
   const { data: productsData, isLoading } = useQuery<ProductsData>({
     queryKey: ['products-page', page, limit],
-    queryFn: () => getAllProducts(page, limit),
+    queryFn: () => getByCategory("Beads",page, limit),
   });
 
   const { data: specialProductsData, isLoading:specialLoading } = useQuery<ProductsData>({
@@ -207,7 +206,7 @@ const Products = () => {
               </Button>
 
               <div className="flex items-center justify-between w-full gap-4 ml-auto">
-                <h1 className={`text-primary font-bold text-4xl ${josefin.className}`}>Our Collection</h1>
+                <h1 className={`text-primary font-bold text-4xl ${josefin.className}`}>Our Rudraksha Beads Collection</h1>
                 <Dropdown>
                   <DropdownTrigger>
                     <Button 
@@ -317,10 +316,6 @@ const Products = () => {
           ))}
         </div>
       </div>
-      <div className='w-full mt-32'>
-        <CategoryProducts/>
-      </div>
-
     </div>
   );
 };

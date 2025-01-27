@@ -8,6 +8,9 @@ import Slider, { CustomArrowProps } from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ReviewModal from './ReviewModal';
+import { useQuery } from '@tanstack/react-query';
+import { getReviewsSlider } from '@/services/reviews';
+import Loader from '@/shared/Loader';
 
 
 interface CustomArrowComponentProps extends CustomArrowProps {
@@ -33,6 +36,17 @@ const CustomNextArrow: React.FC<CustomArrowComponentProps> = ({ onClick }) => (
         <FaChevronRight/>
     </Button>
 )
+
+interface Review{
+    _id: number;
+    userID:{
+        fullName: string;
+    }
+    rating: number;
+    commentTitle: string;
+    comment: string;
+    createdAt: string;
+}
 
 const Reviews = () => {
     const settings = {
@@ -67,109 +81,17 @@ const Reviews = () => {
         ]
     };
 
+    const {data:reviewsData,isLoading}=useQuery({
+        queryKey: ["reviews-slider"],
+        queryFn:()=>getReviewsSlider()
+    })
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOpenModal = (): void => setIsModalOpen(true);
-    const handleCloseModal = (): void => setIsModalOpen(false);
+    const handleCloseModal = (): void => setIsModalOpen(false)
 
-    const reviews = [
-            {
-                id: 1,
-                name: "Anjali Sharma",
-                stars: 5,
-                date: "2024-12-15",
-                caption: "Life-Changing Experience",
-                desc: "The rudraksha beads I purchased have truly transformed my spiritual practice. The quality is unmatched, and I can feel the positive energy every day. Highly recommend!"
-            },
-            {
-                id: 2,
-                name: "Rajesh Gupta",
-                stars: 4,
-                date: "2024-11-20",
-                caption: "Good Quality Beads",
-                desc: "The beads are authentic and of great quality. The only reason I gave 4 stars is because of the slight delay in delivery. Overall, very satisfied!"
-            },
-            {
-                id: 3,
-                name: "Priya Koirala",
-                stars: 5,
-                date: "2024-12-10",
-                caption: "Exceptional Customer Service",
-                desc: "The team guided me in selecting the right bead for my needs. The delivery was fast, and the packaging was beautiful. Great experience!"
-            },
-            {
-                id: 4,
-                name: "Deepak Thapa",
-                stars: 4,
-                date: "2024-11-18",
-                caption: "Positive Energy",
-                desc: "I feel calmer and more focused since I started wearing the rudraksha. Excellent quality, but I wish there were more size options available."
-            },
-            {
-                id: 5,
-                name: "Meera Das",
-                stars: 5,
-                date: "2024-12-01",
-                caption: "Authenticity Guaranteed",
-                desc: "It’s hard to find genuine rudraksha beads, but this site exceeded my expectations. The beads are authentic, and their energy is truly powerful."
-            },
-            {
-                id: 6,
-                name: "Arjun Mishra",
-                stars: 3,
-                date: "2024-11-30",
-                caption: "Average Experience",
-                desc: "The beads are decent, but I was expecting better clarity in the mukhi lines. Still, the customer support team was helpful."
-            },
-            {
-                id: 7,
-                name: "Kiran Rai",
-                stars: 5,
-                date: "2024-12-05",
-                caption: "Highly Satisfied",
-                desc: "The rudraksha beads are amazing. They have brought peace and positivity to my life. Thank you for this wonderful product!"
-            },
-            {
-                id: 8,
-                name: "Suman Joshi",
-                stars: 4,
-                date: "2024-12-12",
-                caption: "Great Value for Money",
-                desc: "I was impressed with the pricing and the quality. The beads are genuine, and the spiritual benefits are noticeable."
-            },
-            {
-                id: 9,
-                name: "Rita Pandey",
-                stars: 5,
-                date: "2024-11-25",
-                caption: "Beautiful and Powerful",
-                desc: "The beads are beautifully crafted and radiate positive energy. I couldn’t be happier with my purchase."
-            },
-            {
-                id: 10,
-                name: "Amit Chaudhary",
-                stars: 4,
-                date: "2024-11-22",
-                caption: "Good Product",
-                desc: "The product quality is excellent, but the delivery took longer than expected. Will definitely buy again."
-            },
-            {
-                id: 11,
-                name: "Nisha Adhikari",
-                stars: 5,
-                date: "2024-12-08",
-                caption: "Highly Recommend",
-                desc: "The rudraksha beads have helped me focus and find inner peace. Thank you for offering such high-quality products!"
-            },
-            {
-                id: 12,
-                name: "Binod Shrestha",
-                stars: 3,
-                date: "2024-11-27",
-                caption: "Decent Purchase",
-                desc: "While the beads seem authentic, the size was smaller than expected. Still, I appreciate the fast response from the customer support team."
-            }
-        ];
+    if(isLoading)return <Loader/>
 
     return (
         <div className="w-full">
@@ -192,26 +114,26 @@ const Reviews = () => {
 
             <div className="w-full bg-gray-100 py-12 overflow-hidden relative px-20">
                 <Slider {...settings}>
-                    {reviews.map((item, index) => (
-                            <div className='px-8 w-full relative min-h-[300px]' key={index}>
+                    {reviewsData?.reviews.map((item:Review) => (
+                            <div className='px-8 w-full relative min-h-[300px]' key={item?._id}>
                                 <div className="bg-white rounded-lg shadow-md h-auto px-10 py-8 hover:shadow-lg transition-shadow duration-300">
                                     <div className='flex gap-4 items-center mb-6'>
                                         <Avatar
                                             color='warning'
                                             as="button"
                                             size="md"
-                                            src={`https://ui-avatars.com/api/?name=${item?.name}&background=E4C087&color=ffff`}
+                                            src={`https://ui-avatars.com/api/?name=${item?.userID?.fullName}&background=E4C087&color=ffff`}
                                         />
                                         <div className='font-medium'>
-                                            <h1 className='leading-5 '>{item.name}</h1>
-                                            <p className='text-xs text-gray-400'>{item.date}</p>
+                                            <h1 className='leading-5 '>{item.userID.fullName}</h1>
+                                            <p className='text-xs text-gray-400'>{item.createdAt.split("T")[0]}</p>
                                         </div>
                                     </div>
                                     <div className='flex flex-col gap-2 mt-4'>
-                                        <div className='flex gap-1 text-primary text-xl'>{generateStars(item.stars)}</div>
+                                        <div className='flex gap-1 text-primary text-xl'>{generateStars(item.rating)}</div>
                                         <div className='flex flex-col gap-1 mt-4'>
-                                            <h1 className='text-lg font-light'>{item.caption}</h1>
-                                            <p className='text-sm text-gray-500 text-justify'>{item.desc}</p>
+                                            <h1 className='text-lg font-light'>{item.commentTitle}</h1>
+                                            <p className='text-sm text-gray-500 text-justify'>{item.comment}</p>
                                         </div>
                                     </div>
                                 </div>

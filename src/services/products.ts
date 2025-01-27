@@ -35,9 +35,9 @@ export const getAllProducts=async(page:number,limit:number)=>{
     }
 }
 
-export const getByCategory=async(category:string)=>{
+export const getByCategory=async(category:string,page:number,limit:number)=>{
     try{
-        const res=await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/get/products/?filterBy=category&filterValue=${category}`)
+        const res=await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/get/products/?filterBy=category&filterValue=${category}&page=${page}&limit=${limit}`)
         return res.data
     }catch(error){
         console.log(error)

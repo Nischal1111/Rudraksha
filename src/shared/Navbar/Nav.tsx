@@ -36,8 +36,12 @@ const Navbar = () => {
             link: "/rudraksha"
         },
         {
-            title: "About",
-            link: "/about"
+            title: "Mala",
+            link: "/mala"
+        },
+        {
+            title: "Bracelet",
+            link: "/bracelet"
         },
         {
             title: "Consultation",
@@ -46,6 +50,10 @@ const Navbar = () => {
     ]
 
     const dropdownItems = [
+        {
+            title: "About",
+            link: "/about"
+        },
         {
             title: "FAQs",
             link: "/faqs"
@@ -83,7 +91,7 @@ const Navbar = () => {
                     <div className='flex gap-20 items-center'>
                         <div className='flex items-center gap-4'>
                             <section className='size-16 rounded-full'>
-                                <Image src={'/logo.webp'} alt='logo' height={1000} width={1000} className='object-cover h-full w-full rounded-full' />
+                                <Image src={'/Logo.webp'} alt='logo' height={1000} width={1000} className='object-cover h-full w-full rounded-full' />
                             </section>
                             <div className='flex flex-col -gap-2'>
                                 <h1 className={`${stylishFont.className} text-2xl leading-5`}>Khandbari</h1>

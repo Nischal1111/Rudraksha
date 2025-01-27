@@ -1,6 +1,7 @@
 import SharedTitle from '@/shared/SharedTitle/SharedTitle'
 import { Button } from '@nextui-org/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const Categories = () => {
@@ -20,7 +21,9 @@ const Categories = () => {
                         <p className='text-4xl font-semibold'>Beads</p>
                     </div>
                     <div className='absolute inset-0 bg-black/40 opacity-0 z-[101] group-hover:opacity-100 flex items-center justify-center transition-all duration-300 ease-in-out'>
+                    <Link href={'/rudraksha'}>
                         <Button className='bg-primary rounded-sm px-12 py-0 text-white'>View Details</Button>
+                    </Link>
                     </div>
                 </div>
                 <div className='w-1/3 h-full relative group overflow-hidden cursor-pointer'>
@@ -35,7 +38,9 @@ const Categories = () => {
                         <p className='text-4xl font-semibold'>Mala</p>
                     </div>
                     <div className='absolute inset-0 bg-black/40 opacity-0 z-[101] group-hover:opacity-100 flex items-center justify-center transition-all duration-300 ease-in-out'>
+                    <Link href={'/mala'}>
                         <Button className='bg-primary rounded-sm px-12 py-0 text-white'>View Details</Button>
+                    </Link>
                     </div>
                 </div>
                 <div className='w-1/3 h-full relative group overflow-hidden cursor-pointer'>
@@ -50,7 +55,9 @@ const Categories = () => {
                         <p className='text-4xl font-semibold'>Bracelet</p>
                     </div>
                     <div className='absolute inset-0 bg-black/40 opacity-0 z-[101] group-hover:opacity-100 flex items-center justify-center transition-all duration-300 ease-in-out'>
+                    <Link href={'/bracelet'}>
                         <Button className='bg-primary rounded-sm px-12 py-0 text-white'>View Details</Button>
+                    </Link>
                     </div>
                 </div>
             </div>

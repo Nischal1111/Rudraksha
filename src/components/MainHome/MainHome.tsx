@@ -11,9 +11,9 @@ import ChooseUs from './ChooseUs'
 const MainHome = () => {
     return (
         <>
-            <div className='w-full h-[70vh] flex items-center justify-center relative'>
+            <div className='w-full h-[90vh] flex items-center justify-center relative'>
                 <div className='bg-zinc-200 h-full flex items-center justify-center w-full relative px-24'>
-                    <div className='h-full absolute inset-0 w-full opacity-[.2]' style={{backgroundImage:"url('/bg.png')",backgroundPosition:"top -200px center",backgroundSize:"cover"}}>
+                    <div className='h-full absolute inset-0 w-full opacity-[.5]' style={{backgroundImage:"url('/bg-2.png')",backgroundPosition:"top 0px center",backgroundSize:"cover"}}>
                     </div>
                     <div className='relative text-center'>
                         <h1 className='font-medium text-4xl'>
