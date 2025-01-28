@@ -1,8 +1,12 @@
 import Search from "@/components/UserSearch/Search"
+import Loader from "@/shared/Loader"
+import { Suspense } from "react"
 
 const page=()=>{
     return(
-        <Search/>
+        <Suspense fallback={<Loader/>}>
+                <Search/>
+        </Suspense>
     )
 }
 

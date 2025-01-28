@@ -20,7 +20,7 @@ import {
 import Image from 'next/image';
 import SharedTitle from '@/shared/SharedTitle/SharedTitle';
 import { useMutation } from '@tanstack/react-query';
-import { consult, postConsult } from '@/services/consult';
+import { postConsult } from '@/services/consult';
 import { toast } from 'sonner';
 
 // Types

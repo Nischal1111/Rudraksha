@@ -24,12 +24,12 @@ const Search = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-semibold mb-6">
-        Search Results for "{q}"
+        Search Results for <strong>{q}</strong>
       </h1>
 
         {queryData?.data?.products?.length>0?
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {queryData?.data?.products?.map((item:any) => ( 
+            {queryData?.data?.products?.map((item:any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
                 <div key={item._id} className='w-full rounded-lg bg-white shadow-md relative'>
                     <div className='absolute top-4 right-4 bg-primary text-white px-2 py-1 text-xs rounded-full'>
                         <p>Special</p>

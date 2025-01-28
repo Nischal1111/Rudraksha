@@ -34,7 +34,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onOpenChange }) => {
             backdrop='blur'
         >
             <ModalContent>
-                {(onClose) => (
+                {() => (
                     <>
                         <ModalHeader className="flex flex-col gap-1">
                             Search Products
