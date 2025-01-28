@@ -131,10 +131,10 @@ const Profile = () => {
             src={`https://ui-avatars.com/api/?name=${session?.user?.name}&background=E4C087&color=ffff`}
           />
           <div className='flex flex-col gap-3 items-center'>
-            <Button variant='light' className='text-white rounded-xl w-40 bg-primary hover:bg-primary' onClick={() => { setIsEdit(!isEdit); setIsChangePassword(false); }}>
+            <Button variant='light' className='text-white rounded-sm w-64 bg-primary hover:bg-primary' onPress={() => { setIsEdit(!isEdit); setIsChangePassword(false); }}>
               {isEdit ? "View Profile" : "Edit Profile"}
             </Button>
-            <Button variant='light' className='text-primary rounded-xl w-40 border border-primary bg-white' onClick={() => setIsChangePassword(true)}>
+            <Button variant='light' className='text-primary rounded-sm w-64 border border-primary bg-white' onPress={() => setIsChangePassword(true)}>
               Change Password
             </Button>
           </div>
@@ -152,6 +152,9 @@ const Profile = () => {
                   <Input
                     isRequired
                     label="Current Password"
+                    classNames={{
+                      label:"!text-black"
+                    }}
                     labelPlacement="outside"
                     placeholder="Enter current password"
                     isInvalid={!!passwordErrors.currentPassword}
@@ -176,6 +179,9 @@ const Profile = () => {
                 {/* New Password Field */}
                 <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4">
                   <Input
+                  classNames={{
+                      label:"!text-black"
+                    }}
                     isRequired
                     label="New Password"
                     labelPlacement="outside"
@@ -203,6 +209,9 @@ const Profile = () => {
                 <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4">
                   <Input
                     isRequired
+                    classNames={{
+                      label:"!text-black"
+                    }}
                     label="Confirm Password"
                     labelPlacement="outside"
                     placeholder="Confirm new password"
@@ -226,8 +235,8 @@ const Profile = () => {
                 </div>
 
                 <div className='flex gap-3 items-center w-[23rem] justify-between m-4'>
-                  <Button variant='light' className='text-primary rounded-xl w-40 border border-primary bg-white' onClick={() => { setIsChangePassword(false); setIsEdit(false); }}>Cancel</Button>
-                  <Button type='submit' variant='light' className='text-white rounded-xl w-40 bg-primary hover:bg-primary' disabled={isPasswordPending}>
+                  <Button variant='light' className='text-primary rounded-sm w-40 border border-primary bg-white' onClick={() => { setIsChangePassword(false); setIsEdit(false); }}>Cancel</Button>
+                  <Button type='submit' variant='light' className='text-white rounded-sm w-40 bg-primary hover:bg-primary' disabled={isPasswordPending}>
                     {isPasswordPending ? "Changing..." : "Change Password"}
                   </Button>
                 </div>
@@ -251,7 +260,10 @@ const Profile = () => {
                   <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4">
                     <Input
                       variant='bordered'
-                      label="name"
+                      classNames={{
+                      label:"!text-black"
+                    }}
+                      label="Name"
                       labelPlacement='outside'
                       placeholder="Enter name"
                       isInvalid={!!profileErrors.name}
@@ -262,6 +274,9 @@ const Profile = () => {
                   <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4">
                     <Input
                       variant='bordered'
+                      classNames={{
+                      label:"!text-black"
+                    }}
                       label="Email"
                       labelPlacement='outside'
                       placeholder="Enter email"
@@ -271,8 +286,8 @@ const Profile = () => {
                     />
                   </div>
                   <div className='flex gap-3 items-center w-[23rem] justify-between m-4'>
-                    <Button variant='light' className='text-primary rounded-xl w-40 border border-primary bg-white' onClick={() => setIsEdit(false)}>Cancel Edit</Button>
-                    <Button type='submit' variant='light' className='text-white rounded-xl w-40 bg-primary hover:bg-primary' disabled={isProfilePending}>
+                    <Button variant='light' className='text-primary rounded-sm w-40 border border-primary bg-white' onClick={() => setIsEdit(false)}>Cancel Edit</Button>
+                    <Button type='submit' variant='light' className='text-white rounded-sm w-40 bg-primary hover:bg-primary' disabled={isProfilePending}>
                       {isProfilePending ? "Saving..." : "Save Changes"}
                     </Button>
                   </div>
@@ -280,10 +295,14 @@ const Profile = () => {
               ) : (
                 <div className='flex flex-col gap-6 mt-5'>
                   <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4 ">
-                    <Input disabled variant='bordered' label="name" labelPlacement='outside' placeholder={session?.user?.name}  />
+                    <Input disabled variant='bordered' classNames={{
+                      label:"!text-black"
+                    }} label="Name" labelPlacement='outside' placeholder={session?.user?.name}  />
                   </div>
                   <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4">
-                    <Input disabled variant='bordered' label="Email" labelPlacement='outside' placeholder={session?.user?.email}  />
+                    <Input disabled variant='bordered' classNames={{
+                      label:"!text-black"
+                    }} label="Email" labelPlacement='outside' placeholder={session?.user?.email}  />
                   </div>
                 </div>
               )}
