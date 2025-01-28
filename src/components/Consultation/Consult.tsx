@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import {
   Input,
@@ -19,16 +19,55 @@ import {
 } from "react-icons/fa";
 import Image from 'next/image';
 import SharedTitle from '@/shared/SharedTitle/SharedTitle';
+import { useMutation } from '@tanstack/react-query';
+import { consult, postConsult } from '@/services/consult';
+import { toast } from 'sonner';
 
-const ConsultationPage = () => {
+// Types
+interface ConsultFormData {
+  fullName: string;
+  email: string;
+  phone: string;
+  date: string;
+  message: string;
+}
+
+interface Benefit {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+interface FadeInUpAnimation {
+  initial: { opacity: number; y: number };
+  animate: { opacity: number; y: number };
+  transition: { duration: number };
+}
+
+const ConsultationPage: React.FC = () => {
+  const [formData, setFormData] = useState<ConsultFormData>({
+    fullName: '',
+    email: '',
+    phone: '',
+    date: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
   
-  const fadeInUp = {
+  const fadeInUp: FadeInUpAnimation = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.5 }
   };
 
-  const benefits = [
+  const benefits: Benefit[] = [
     {
       icon: <FaMedal size={24} />,
       title: "Expert Guidance",
@@ -50,6 +89,30 @@ const ConsultationPage = () => {
       description: "Book consultations at your convenience"
     }
   ];
+
+  const {mutate: postConsultMutation} = useMutation({
+    mutationFn: (data: ConsultFormData) => postConsult(data),
+    onSuccess: () => {
+      toast.success("Consultation Request has been sent.")
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        date: '',
+        message: ''
+      });
+    },
+    onError: () => {
+      toast.error("Failed to send Consultation Request.")
+    }
+  });
+
+  const today = new Date().toISOString().split('T')[0];
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    postConsultMutation(formData);
+  };
 
   return (
     <div className="w-full">
@@ -97,17 +160,16 @@ const ConsultationPage = () => {
                 <p className="text-small text-gray-500">Fill in your details below</p>
               </div>
             </div>
-            <div className="p-6 space-y-6">
-              <div className="grid grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="p-6 space-y-6">
+              <div className="grid grid-cols-1 gap-4">
                 <Input 
-                  label="First Name"
-                  placeholder="Enter your first name"
+                  label="Full Name"
+                  placeholder="Enter your full name"
                   variant="bordered"
-                />
-                <Input 
-                  label="Last Name"
-                  placeholder="Enter your last name"
-                  variant="bordered"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
               
@@ -117,6 +179,10 @@ const ConsultationPage = () => {
                 placeholder="Enter your email"
                 variant="bordered"
                 startContent={<FaEnvelope className="text-default-400" />}
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
               />
               
               <Input
@@ -125,6 +191,10 @@ const ConsultationPage = () => {
                 placeholder="Enter your phone number"
                 variant="bordered"
                 startContent={<FaPhone className="text-default-400" />}
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                required
               />
               
               <Input
@@ -133,6 +203,11 @@ const ConsultationPage = () => {
                 placeholder="Choose your preferred date"
                 variant="bordered"
                 startContent={<FaCalendarAlt className="text-default-400" />}
+                name="date"
+                min={today}
+                value={formData.date}
+                onChange={handleInputChange}
+                required
               />
               
               <Textarea
@@ -140,16 +215,21 @@ const ConsultationPage = () => {
                 placeholder="Tell us about your specific requirements..."
                 variant="bordered"
                 minRows={4}
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                required
               />
               
               <Button 
                 color="primary" 
                 size="lg" 
                 className="w-full"
+                type="submit"
               >
                 Schedule Consultation
               </Button>
-            </div>
+            </form>
           </motion.div>
 
           <motion.div 
@@ -222,13 +302,14 @@ const ConsultationPage = () => {
 
       <div className="w-full lg:h-[80vh] h-[70vh] px-24 mb-12">
         <SharedTitle title="Visit Us At" classname='text-5xl'/>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3542.4569905908816!2d87.2120599!3d27.392668999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e8c7002a48f253%3A0x879bd1fd194f42c3!2sSankhuwasabha%20khandbari!5e0!3m2!1sen!2snp!4v1736881633500!5m2!1sen!2snp" 
-                  width="100%"
-                    height="100%"
-                    style={{border:"none",outline:"none"}}
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                />
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3542.4569905908816!2d87.2120599!3d27.392668999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e8c7002a48f253%3A0x879bd1fd194f42c3!2sSankhuwasabha%20khandbari!5e0!3m2!1sen!2snp!4v1736881633500!5m2!1sen!2snp" 
+          width="100%"
+          height="100%"
+          style={{border:"none",outline:"none"}}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
       </div>
     </div>
   );

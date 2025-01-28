@@ -13,6 +13,7 @@ import { AuthResponse } from '@/types/types'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
 import { IoIosArrowDown } from 'react-icons/io'
+import SearchModal from './SearchModal'
 
 const Navbar = () => {
     const [open, setOpen] = React.useState(false)
@@ -21,6 +22,7 @@ const Navbar = () => {
     const { data: sessionData, status } = useSession()
     const session = sessionData as unknown as AuthResponse
     const isLoggedIn = status === "authenticated";
+    const [searchOpen, setSearchOpen] = React.useState(false)
 
     const cartItems = useSelector((state: RootState) => state.cart.items)
 
@@ -65,10 +67,6 @@ const Navbar = () => {
         {
             title: "Terms and Conditions",
             link: "/terms-and-conditions"
-        },
-        {
-            title: "Rudraksha Energization",
-            link: "/rudraksha-energization"
         }
     ]
 
@@ -86,6 +84,7 @@ const Navbar = () => {
 
     return (
         <>
+            <SearchModal isOpen={searchOpen} onOpenChange={setSearchOpen} />
             <div className='shadow-sm top-0 fixed flex flex-col items-center justify-between px-8 py-2 bg-white w-full z-[9999]'>
                 <div className='w-full flex justify-between items-center font-medium uppercase text-sm tracking-wide'>
                     <div className='flex gap-20 items-center'>
@@ -135,7 +134,7 @@ const Navbar = () => {
                         </section>
                     </div>
                     <div className='flex items-center gap-8'>
-                        <Button className='bg-primary' size='md' isIconOnly><CiSearch size={24} className='text-white' /></Button>
+                        <Button className='bg-primary' size='md' onPress={() => setSearchOpen(true)} isIconOnly><CiSearch size={24} className='text-white' /></Button>
 
                         {isLoggedIn && 
                             <div className='flex gap-8 items-center relative'>

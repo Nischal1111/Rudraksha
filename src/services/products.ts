@@ -43,6 +43,16 @@ export const getByCategory=async(category:string,page:number,limit:number)=>{
         console.log(error)
     }
 }
+
+export const getByCountry=async(country:string)=>{
+    try{
+        const res=await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/get/products/?filterBy=country&filterValue=${country}`)
+        return res.data
+    }catch(error){
+        console.log(error)
+    }
+}
+
 export const getExclude=async(id:string|undefined|string[])=>{
     try{
         const res=await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/get/products/?excludeId=${id}&page=1&limit=4`)
@@ -51,3 +61,4 @@ export const getExclude=async(id:string|undefined|string[])=>{
         console.log(error)
     }
 }
+

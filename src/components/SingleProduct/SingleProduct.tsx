@@ -30,6 +30,7 @@ import "slick-carousel/slick/slick-theme.css";
 import RelatedProducts from './RelatedProducts';
 import Link from 'next/link';
 import { getValidImageUrl } from '@/utils/imageUtils';
+import ChooseUs from '../MainHome/ChooseUs';
 
 interface BenefitCardProps {
   icon: React.ElementType;
@@ -253,9 +254,16 @@ const SingleProduct: React.FC = () => {
                 <span className="text-3xl font-bold text-primary">
                   ${singleProduct.product.price}
                 </span>
-                <Chip color="success" variant="flat">
-                  In Stock
-                </Chip>
+                {singleProduct?.product?.stock > 0 ?
+                  <Chip color="success" variant="flat">
+                    In Stock
+                  </Chip>
+                  :
+                  <Chip color="danger" variant="flat">
+                    Not in Stock
+                  </Chip>
+                }
+                
               </div>
             </div>
 
@@ -341,6 +349,8 @@ const SingleProduct: React.FC = () => {
             </Button>
           </Link>
         </div>
+
+        <ChooseUs/>
       </div>
     </motion.div>
   );

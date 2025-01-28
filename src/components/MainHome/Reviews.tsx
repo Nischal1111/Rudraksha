@@ -11,6 +11,8 @@ import ReviewModal from './ReviewModal';
 import { useQuery } from '@tanstack/react-query';
 import { getReviewsSlider } from '@/services/reviews';
 import Loader from '@/shared/Loader';
+import Login from '@/shared/Login/Login';
+import { useSession } from 'next-auth/react';
 
 
 interface CustomArrowComponentProps extends CustomArrowProps {
@@ -81,20 +83,32 @@ const Reviews = () => {
         ]
     };
 
+    const {status}=useSession()
+
+
     const {data:reviewsData,isLoading}=useQuery({
         queryKey: ["reviews-slider"],
         queryFn:()=>getReviewsSlider()
     })
+    
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-    const handleOpenModal = (): void => setIsModalOpen(true);
+    const handleOpenModal = (): void => {
+        if(status==="unauthenticated"){
+            setIsLoginModalOpen(true)
+            return
+        }
+        setIsModalOpen(true);
+    }
     const handleCloseModal = (): void => setIsModalOpen(false)
 
     if(isLoading)return <Loader/>
 
     return (
         <div className="w-full">
+            <Login isOpen={isLoginModalOpen} onOpenChange={setIsLoginModalOpen}/>
             <ReviewModal isOpen={isModalOpen} onClose={handleCloseModal} />
             <div className="px-4 md:px-16 mb-12">
                 <SharedTitle title="Reviews" />
@@ -125,8 +139,8 @@ const Reviews = () => {
                                             src={`https://ui-avatars.com/api/?name=${item?.userID?.fullName}&background=E4C087&color=ffff`}
                                         />
                                         <div className='font-medium'>
-                                            <h1 className='leading-5 '>{item.userID.fullName}</h1>
-                                            <p className='text-xs text-gray-400'>{item.createdAt.split("T")[0]}</p>
+                                            <h1 className='leading-5 '>{item?.userID?.fullName}</h1>
+                                            <p className='text-xs text-gray-400'>{item?.createdAt?.split("T")[0]}</p>
                                         </div>
                                     </div>
                                     <div className='flex flex-col gap-2 mt-4'>

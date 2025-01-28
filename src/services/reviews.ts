@@ -1,13 +1,18 @@
 import axios from "axios"
-
-// export const postReview = async (data: any) => {
-//     try{
-        
-
-//     }catch(error){
-//         console.log(error)
-//     }
-// }
+export interface Review {
+    userID:string,
+    rating:number,
+    commentTitle:string,
+    comment:string,
+}
+export const postReview = async (data: Review) => {
+    try{
+        const res=await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/review/create`,data)
+        return res.data
+    }catch(error){
+        console.log(error)
+    }
+}
 
 export const getReviewsSlider = async () => {
     try{
