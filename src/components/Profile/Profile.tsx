@@ -119,7 +119,7 @@ const Profile = () => {
   return (
     <div className="w-full px-20 pt-10 h-[70vh]">
       <div className='flex gap-14'>
-        <IoArrowBack size={35} className="cursor-pointer" />
+       <Button isIconOnly variant='light' onPress={() => window.history.back()}><IoArrowBack size={35} className="cursor-pointer" /> </Button> 
         <h1 className='text-3xl font-semibold'>My Profile</h1>
       </div>
       <div className='flex gap-32'>

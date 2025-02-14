@@ -1,7 +1,6 @@
 // utils/imageUtils.ts
 
 export const getValidImageUrl = (url: string): string => {
-  if (!url) return '/placeholder-image.jpg';
   
   // Check if it's a relative path starting with '/'
   if (url.startsWith('/')) return url;

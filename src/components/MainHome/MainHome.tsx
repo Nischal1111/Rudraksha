@@ -27,17 +27,16 @@ const MainHome = () => {
     return (
         <>
             <div className='w-full h-[90vh] flex items-center justify-center relative'>
-                <div className='bg-zinc-200 h-full flex items-center justify-center w-full relative px-24'>
-                    <div className='h-full absolute inset-0 w-full opacity-[.5]' style={{backgroundImage:"url('/bg-2.png')",backgroundPosition:"top 0px center",backgroundSize:"cover"}}>
+                <div className='bg-zinc-200 h-full flex items-center justify-left w-full relative px-24'>
+                    <div className='h-full absolute inset-0 w-full opacity-[.6]' style={{backgroundImage:"url('/bg-2.png')",backgroundPosition:"top 0px center",backgroundSize:"cover"}}>
                     </div>
-                    <div className='relative text-center'>
-                        <h1 className='font-medium text-4xl'>
+                    <div className='relative text-left w-4/5'>
+                        <h1 className='font-medium text-4xl w-2/3'>
                             Discover the Power of Authentic Rudraksha Beads
                         </h1>
-                        <p className='text-lg my-4'>Handpicked, spiritually enriched, and rooted in tradition—our collection of sacred rudraksha beads brings you closer to tranquility, health, and prosperity. Experience the divine energy and unlock your spiritual potential today.
+                        <p className='text-base w-4/5 my-4'>Handpicked, spiritually enriched, and rooted in tradition—our collection of sacred rudraksha beads brings you closer to tranquility, health, and prosperity. Experience the divine energy and unlock your spiritual potential today.
                         </p>
                         <form action="" onSubmit={handleSearch}>
-                            <div className='flex items-center justify-center w-full'>
                                 <Input 
                                     classNames={{
                                         input: "placeholder:text-gray-500 !text-black",
@@ -54,7 +53,6 @@ const MainHome = () => {
                                     startContent={<CiSearch size={32} className='text-black mr-2'/>} 
                                     endContent={<Button className='bg-primary rounded-sm px-8 py-0 text-white' size='sm' type='submit' isDisabled={!searchQuery.trim()}>Search</Button>} 
                                 />
-                            </div>
                         </form>
                     </div>
                 </div>

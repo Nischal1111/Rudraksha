@@ -52,6 +52,14 @@ export const getByCountry=async(country:string)=>{
         console.log(error)
     }
 }
+export const getByFilter=async(category:string,value:string)=>{
+    try{
+        const res=await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/get/products/?filterBy=${category}&filterValue=${value}`)
+        return res.data
+    }catch(error){
+        console.log(error)
+    }
+}
 
 export const getExclude=async(id:string|undefined|string[])=>{
     try{

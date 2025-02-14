@@ -49,10 +49,7 @@ const Checkout = () => {
                       alt={item.title}
                       fill
                       className="object-cover rounded-lg"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/placeholder-image.jpg';
-                      }}
+                      
                     />
                   </div>
 

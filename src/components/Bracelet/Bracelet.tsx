@@ -1,13 +1,14 @@
 "use client"
 import React, { useState } from 'react';
-import { getByCategory } from '@/services/products';
+import { getByCategory, getByFilter } from '@/services/products';
 import Loader from '@/shared/Loader';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Pagination, Chip, Slider, CheckboxGroup, Checkbox, Accordion, AccordionItem } from '@nextui-org/react';
-import { FiFilter, FiChevronDown, FiArrowRight } from 'react-icons/fi';
+import { Button, Pagination, Chip, CheckboxGroup, Checkbox, Accordion, AccordionItem } from '@nextui-org/react';
+import { FiFilter, FiArrowRight, FiX, FiPackage } from 'react-icons/fi';
 import { josefin } from '@/utils/font';
+import { toast } from 'sonner';
 
 export interface Product {
   _id: string;
@@ -18,7 +19,7 @@ export interface Product {
   faces: string;
   country: string;
   weight: string;
-  category:string
+  category: string;
 }
 
 export interface ProductsData {
@@ -30,38 +31,80 @@ export interface ProductsData {
   };
 }
 
+interface FilterState {
+  category: string;
+  value: string;
+}
+
 const Bracelet = () => {
-  const limit = 9;
+  // Constants
+  const ITEMS_PER_PAGE = 9;
+  
+  // State Management
   const [page, setPage] = useState(1);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-  const [sortKey, setSortKey] = useState<string>('featured');
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const [selectedFace, setSelectedFace] = useState<string>("");
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
+  const [activeFilter, setActiveFilter] = useState<FilterState | null>(null);
+  
+  // Refs
   const pageRef = React.useRef<HTMLDivElement>(null);
 
-  const { data: productsData, isLoading } = useQuery<ProductsData>({
-    queryKey: ['mala-products-page', page, limit],
-    queryFn: () => getByCategory("Bracelet",page, limit),
+  // Queries
+  const { data: productsData, isLoading, error } = useQuery<ProductsData>({
+    queryKey: ['bracelet-products', page, ITEMS_PER_PAGE, activeFilter],
+    queryFn: async () => {
+      try {
+        if (activeFilter) {
+          return await getByFilter(activeFilter.category, activeFilter.value);
+        }
+        return await getByCategory("Bracelet", page, ITEMS_PER_PAGE);
+      } catch (error) {
+        toast.error("Failed to fetch products");
+        throw error;
+      }
+    },
   });
 
-  const handlePageChange = (newPage: number): void => {
-    setPage(newPage);
-    pageRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Filter Options
+  const filterOptions = {
+    faces: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'],
+    countries: ['Nepal', 'Indonesia']
   };
 
-  const toggleSidebar = (): void => {
-    setIsSidebarOpen(!isSidebarOpen);
+  // Handlers
+  const handlePageChange = (newPage: number): void => {
+    setPage(newPage);
+    pageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleFilterChange = (category: string, value: string) => {
+    if (!value) {
+      setActiveFilter(null);
+      return;
+    }
+
+    setActiveFilter({
+      category,
+      value
+    });
+    setPage(1);
+  };
+
+  const clearFilters = () => {
+    setSelectedFace("");
+    setSelectedCountry("");
+    setActiveFilter(null);
+    setPage(1);
   };
 
   if (isLoading) return <Loader />;
-
-  const countries = ['Nepal', 'Indonesia'];
+  if (error) return <div className="text-center py-10">Error loading products. Please try again later.</div>;
 
   return (
     <div ref={pageRef} className="min-h-screen">
       {/* Hero Section */}
       <div className="relative h-[500px] text-white">
-        {/* Background Image */}
         <Image
           src="https://images.pexels.com/photos/6633984/pexels-photo-6633984.jpeg?auto=compress&cs=tinysrgb&w=800"
           alt="Rudraksha Background"
@@ -69,72 +112,86 @@ const Bracelet = () => {
           className="object-cover object-center"
           priority
         />
-        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/60" />
-        {/* Content */}
         <div className="relative h-full max-w-7xl mx-auto px-4 flex items-center">
           <div className="max-w-3xl">
             <h1 className={`text-4xl md:text-5xl font-bold mb-6 ${josefin.className}`}>
               Our Sacred Rudraksha Bracelet Collection
             </h1>
             <p className="text-lg md:text-xl text-gray-100 mb-8">
-              Explore our curated collection of authentic Rudraksha beads, carefully sourced from sacred locations across Nepal, India, and Indonesia.
+              Explore our curated collection of authentic Rudraksha bracelets, carefully sourced from sacred locations across Nepal and Indonesia.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Main Products Section */}
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Sidebar */}
-          <div className={`md:w-1/4 bg-white rounded-xl shadow-md p-6 h-fit ${isSidebarOpen ? 'fixed inset-0 z-50 md:relative' : 'hidden md:block'}`}>
+          {/* Sidebar Filters */}
+          <div className={`md:w-1/4 bg-white rounded-xl shadow-md p-6 h-fit
+            ${isSidebarOpen ? 'fixed inset-0 z-50 md:relative' : 'hidden md:block'}`}>
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-semibold">Filters</h3>
-              <Button isIconOnly variant="light" className="md:hidden" onPress={toggleSidebar}>
-                ×
-              </Button>
+              <div className="flex gap-2">
+                {activeFilter && (
+                  <Button 
+                    size="sm"
+                    variant="light" 
+                    color="danger"
+                    onPress={clearFilters}
+                  >
+                    Clear All
+                  </Button>
+                )}
+                <Button 
+                  isIconOnly 
+                  variant="light" 
+                  className="md:hidden"
+                  onPress={() => setIsSidebarOpen(false)}
+                >
+                  <FiX />
+                </Button>
+              </div>
             </div>
 
-            <Accordion 
-              className="text-black"
-              itemClasses={{
-                title: "text-black font-medium",
-                content: "text-black"
-              }}
-            >
-              <AccordionItem
-                key="price"
-                aria-label="Price Range"
-                title="Price Range"
-              >
-                <Slider
-                  label="Price Range"
-                  step={50}
-                  minValue={0}
-                  maxValue={1000}
-                  defaultValue={priceRange}
-                  formatOptions={{ style: 'currency', currency: 'USD' }}
-                  className="max-w-md"
-                  onChange={(value) => setPriceRange(value as [number, number])}
-                />
-              </AccordionItem>
-
-              <AccordionItem
-                key="origin"
-                aria-label="Origin"
-                title="Origin"
-              >
-                <CheckboxGroup 
-                  value={selectedCountries} 
-                  onChange={setSelectedCountries as any}  //eslint-disable-line @typescript-eslint/no-explicit-any
-                  className="gap-1"
-                  classNames={{
-                    label: "text-black"
+            <Accordion>
+              {/* Faces Filter */}
+              <AccordionItem key="faces" title="Faces" classNames={{
+                    title:"!text-black"
+                  }}>
+                <CheckboxGroup
+                  value={selectedFace ? [selectedFace] : []}
+                  onChange={(value) => {
+                    const newValue = value[0] || "";
+                    setSelectedFace(newValue);
+                    handleFilterChange('faces', newValue);
                   }}
                 >
-                  {countries.map((country) => (
-                    <Checkbox key={country} value={country} classNames={{label: "text-black"}}>{country}</Checkbox>
+                  {filterOptions.faces.map((face) => (
+                    <Checkbox key={face} value={face} classNames={{ label: "!text-black" }}>
+                      {face} Face
+                    </Checkbox>
+                  ))}
+                </CheckboxGroup>
+              </AccordionItem>
+
+              {/* Country Filter */}
+              <AccordionItem key="country" title="Origin" classNames={{
+                    title:"!text-black"
+                  }}>
+                <CheckboxGroup
+                  value={selectedCountry ? [selectedCountry] : []}
+                  onChange={(value) => {
+                    const newValue = value[0] || "";
+                    setSelectedCountry(newValue);
+                    handleFilterChange('country', newValue);
+                  }}
+                >
+                  {filterOptions.countries.map((country) => (
+                    <Checkbox key={country} value={country} classNames={{ label: "!text-black" }}>
+                      {country}
+                    </Checkbox>
                   ))}
                 </CheckboxGroup>
               </AccordionItem>
@@ -143,76 +200,89 @@ const Bracelet = () => {
 
           {/* Products Grid */}
           <div className="md:w-3/4">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
               <Button
                 variant="flat"
-                color="primary"
                 className="md:hidden"
-                onPress={toggleSidebar}
+                onPress={() => setIsSidebarOpen(true)}
                 startContent={<FiFilter />}
               >
                 Filters
               </Button>
-
-              <div className="flex items-center justify-between w-full gap-4 ml-auto">
-                <h1 className={`text-primary font-bold text-4xl ${josefin.className}`}>Our Bracelet Collection</h1>
-                <Dropdown>
-                  <DropdownTrigger>
-                    <Button 
-                      className="bg-white border border-primary text-primary rounded-lg hover:bg-primary/5" 
-                      endContent={<FiChevronDown />}
-                    >
-                      {sortKey === 'featured'
-                        ? 'Featured'
-                        : sortKey === 'price_asc'
-                        ? 'Price: Low to High'
-                        : 'Price: High to Low'}
-                    </Button>
-                  </DropdownTrigger>
-                  <DropdownMenu
-                    aria-label="Sort options"
-                    onAction={(key) => setSortKey(key as string)}
-                  >
-                    <DropdownItem key="featured">Featured</DropdownItem>
-                    <DropdownItem key="price_asc">Price: Low to High</DropdownItem>
-                    <DropdownItem key="price_desc">Price: High to Low</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {productsData?.products.map((item) => (
-                <div key={item._id} className="group bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-all duration-300">
-                  <div className="relative h-40 w-full overflow-hidden">
-                    <Image
-                      src={item.img[0]}
-                      alt={item.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h4 className="text-xl font-semibold mb-2">{item.title}</h4>
-                        <div className="flex gap-2">
-                          <Chip size="sm" variant="flat" className='text-white bg-primary'>{item.size}</Chip>
-                          <Chip size="sm" variant="flat" className='text-white bg-purple-300'>{item.faces} Face</Chip>
-                        </div>
-                      </div>
-                      <div className="text-xl font-bold text-gray-800">${item.price}</div>
-                    </div>
-                    <Link
-                      href={`/rudraksha/${item._id}`}
-                      className="inline-flex items-center text-primary hover:text-primary/80 font-medium"
-                    >
-                      View Details
-                      <FiArrowRight className="ml-2" />
-                    </Link>
-                  </div>
+            {/* Active Filters Display */}
+            {activeFilter && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {selectedFace && (
+                  <Chip 
+                    onClose={() => {
+                      setSelectedFace("");
+                      handleFilterChange('faces', "");
+                    }}
+                    variant="flat"
+                    color="primary"
+                  >
+                    Face: {selectedFace}
+                  </Chip>
+                )}
+                {selectedCountry && (
+                  <Chip 
+                    onClose={() => {
+                      setSelectedCountry("");
+                      handleFilterChange('country', "");
+                    }}
+                    variant="flat"
+                    color="primary"
+                  >
+                    Country: {selectedCountry}
+                  </Chip>
+                )}
+              </div>
+            )}
+
+            {/* Products Grid */}
+            <div>
+              <h1 className={`text-primary font-bold text-4xl mb-8 ${josefin.className}`}>Our Rudraksha Bracelet Collection</h1>
+              {productsData?.products?.length === 0 && (
+                <div className="min-h-[400px] flex items-center justify-center flex-col gap-4">
+                  <FiPackage className="w-16 h-16 text-default-400" />
+                  <p className="text-lg text-default-600">No products found</p>
                 </div>
-              ))}
+              )}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {productsData?.products.map((product) => (
+                  <div key={product._id} className="group bg-white rounded-xl shadow-lg overflow-hidden hover:-translate-y-1 transition-all duration-300">
+                    <div className="relative h-48 w-full overflow-hidden">
+                      <Image
+                        src={product.img[0]}
+                        alt={product.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    </div>
+                    <div className="px-6 py-2">
+                        <div className='flex items-center justify-between gap-2'>
+                          <h4 className="text-xl font-semibold mb-2">{product.title}</h4>
+                          <div className="text-xl font-bold text-primary">${product.price}</div>
+                        </div>
+
+                          <div className="flex gap-2 mt-2">
+                            <Chip size="sm" variant="flat" color="primary">{product.size}</Chip>
+                            <Chip size="sm" variant="flat" color="secondary">{product.faces} Face</Chip>
+                            <Chip size="sm" variant="flat" color="success">{product.country}</Chip>
+                          </div>
+                      <Link
+                        href={`/rudraksha/${product._id}`}
+                        className="inline-flex items-center mt-4 text-primary hover:text-primary/80 font-medium"
+                      >
+                        View Details
+                        <FiArrowRight className="ml-2" />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Pagination */}
