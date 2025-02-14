@@ -4,6 +4,7 @@ import { FiFacebook } from 'react-icons/fi'
 import { FaInstagram } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { BsArrowRight } from 'react-icons/bs'
+import Link from 'next/link'
 
 const FooterLink = ({ children}:{children:string}) => (
   <p className="text-sm font-semibold flex items-center gap-2 group cursor-pointer text-zinc-800 hover:text-black">
@@ -94,7 +95,7 @@ const Footer = () => {
                     <Divider className='bg-gray-600'/>
                     <div className='flex flex-col sm:flex-row items-center w-full justify-between text-gray-700 gap-2 text-center sm:text-left'>
                         <p>Copyright © {date} by Khadbari Rudraskha Suppliers</p>
-                        <p>© Developed by Nischal Neupane and Rabin Bhattarai</p>
+                        <p>© Developed by <Link href='https://nischal-neupane.com.np' className='underline underline-offset-2' target='_blank'>Nischal Neupane</Link> and Rabin Bhattarai</p>
                     </div>
                 </main>
             </main>
