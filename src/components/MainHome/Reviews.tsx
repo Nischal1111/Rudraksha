@@ -23,7 +23,7 @@ const CustomPrevArrow: React.FC<CustomArrowComponentProps> = ({ onClick }) => (
     <Button
         isIconOnly
         onClick={onClick}
-        className="absolute -left-8 top-1/2 text-white -translate-y-1/2 z-10 bg-primary/50 hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
+        className="absolute lg:-left-8 left-0 top-1/2 text-white -translate-y-1/2 z-10 bg-primary/50 hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
     >
         <FaChevronLeft />
     </Button>
@@ -33,7 +33,7 @@ const CustomNextArrow: React.FC<CustomArrowComponentProps> = ({ onClick }) => (
     <Button
         isIconOnly
         onClick={onClick}
-        className="absolute -right-8 top-1/2 text-white -translate-y-1/2 z-10 bg-primary/50 hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
+        className="absolute lg:-right-8 right-0 top-1/2 text-white -translate-y-1/2 z-10 bg-primary/50 hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
     >
         <FaChevronRight/>
     </Button>
@@ -126,7 +126,7 @@ const Reviews = () => {
                 </div>
             </div>
 
-            <div className="w-full bg-gray-100 py-12 overflow-hidden relative px-20">
+            <div className="w-full bg-gray-100 py-12 overflow-hidden relative lg:px-20 px-4">
                 <Slider {...settings}>
                     {reviewsData?.reviews.map((item:Review) => (
                             <div className='px-8 w-full relative min-h-[300px]' key={item?._id}>

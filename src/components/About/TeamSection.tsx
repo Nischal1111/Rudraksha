@@ -69,7 +69,7 @@ const TeamSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className={`text-5xl font-bold ${josefin.className} text-primary mb-6`}>
+          <h2 className={`lg:text-5xl text-3xl font-bold ${josefin.className} text-primary mb-6`}>
             The Visionaries Behind Our Success
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">

@@ -32,7 +32,7 @@ const ChooseUs = () => {
         }
     ]
     return (
-        <div className='w-full px-16 py-4'>
+        <div className='w-full lg:px-16 px-4 py-4'>
             <SharedTitle title='Why Should You Choose Us?'/>
             <div className='grid grid-cols-3 place-items-center place-content-center gap-x-8 gap-y-8'>
                 {data.map(item=>(
@@ -40,7 +40,7 @@ const ChooseUs = () => {
                         <div className='size-24'>
                             <Image className='object-cover h-full w-full' src={item.img} alt={item.title} height={1000} width={1000} loading='lazy'/>
                         </div>
-                        <h1 className={`${josefin.className} text-2xl mt-2 text-primary`}>{item.title}</h1>
+                        <h1 className={`${josefin.className} lg:text-2xl text-lg mt-2 text-primary`}>{item.title}</h1>
                     </div>
             ))}
             </div>

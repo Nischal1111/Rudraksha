@@ -96,13 +96,10 @@ const Profile = () => {
     const updatedFields: Partial<ProfileFields> = {};
 
     // Check if the name has been changed
-   
-      updatedFields.name = data.name;
-   
-
+    updatedFields.name = data.name;
+    
     // Check if the email has been changed
-      updatedFields.email = data.email;
-
+    updatedFields.email = data.email;
 
     // Only call the mutation if there are changes
     if (Object.keys(updatedFields).length > 0) {
@@ -117,43 +114,59 @@ const Profile = () => {
   };
 
   return (
-    <div className="w-full px-20 pt-10 h-[70vh]">
-      <div className='flex gap-14'>
-       <Button isIconOnly variant='light' onPress={() => window.history.back()}><IoArrowBack size={35} className="cursor-pointer" /> </Button> 
-        <h1 className='text-3xl font-semibold'>My Profile</h1>
+    <div className="w-full px-4 md:px-8 lg:px-20 pt-6 lg:pt-10 pb-12">
+      <div className='flex gap-4 md:gap-14 items-center'>
+        <Button isIconOnly variant='light' onPress={() => window.history.back()}>
+          <IoArrowBack size={24}  className="cursor-pointer" />
+        </Button> 
+        <h1 className='text-xl md:text-2xl lg:text-3xl font-semibold'>My Profile</h1>
       </div>
-      <div className='flex gap-32'>
-        <div className='flex flex-col gap-14 items-center mt-9 px-8 py-6 w-1/4'>
+      
+      {/* Main content container - changes from row to column on mobile */}
+      <div className='flex flex-col md:flex-row md:gap-8 lg:gap-32'>
+        {/* Avatar and buttons section */}
+        <div className='flex flex-col items-center mt-6 md:mt-9 py-4 md:py-6 w-full md:w-1/4 md:px-4 lg:px-8'>
           <Avatar
-            className='w-24 h-24'
+            className='w-20 h-20 md:w-24 md:h-24'
             color='warning'
             as="button"
             src={`https://ui-avatars.com/api/?name=${session?.user?.name}&background=E4C087&color=ffff`}
           />
-          <div className='flex flex-col gap-3 items-center'>
-            <Button variant='light' className='text-white rounded-sm w-64 bg-primary hover:bg-primary' onPress={() => { setIsEdit(!isEdit); setIsChangePassword(false); }}>
+          <div className='flex flex-col gap-3 items-center mt-6 md:mt-8 lg:mt-14 w-full'>
+            <Button 
+              variant='light' 
+              className='text-white rounded-sm w-full max-w-xs md:w-full lg:w-64 bg-primary hover:bg-primary'
+              onPress={() => { setIsEdit(!isEdit); setIsChangePassword(false); }}
+            >
               {isEdit ? "View Profile" : "Edit Profile"}
             </Button>
-            <Button variant='light' className='text-primary rounded-sm w-64 border border-primary bg-white' onPress={() => setIsChangePassword(true)}>
+            <Button 
+              variant='light' 
+              className='text-primary rounded-sm w-full max-w-xs md:w-full lg:w-64 border border-primary bg-white'
+              onPress={() => { setIsChangePassword(true); setIsEdit(false); }}
+            >
               Change Password
             </Button>
           </div>
         </div>
-        <div className='flex flex-col gap-10 m-20 w-[26rem]'>
+        
+        {/* Form section */}
+        <div className='flex flex-col gap-6 md:gap-10 mt-8 md:mt-12 lg:m-20 w-full md:w-2/3 lg:w-[26rem]'>
           {isChangePassword ? (
             <div>
-              <div className='flex gap-4 items-center'>
-                <MdEdit size={27} />
-                <h1 className='text-xl font-semibold'>Change Password</h1>
+              <div className='flex gap-3 md:gap-4 items-center'>
+                <MdEdit size={24} />
+                <h1 className='text-lg md:text-xl font-semibold'>Change Password</h1>
               </div>
-              <form onSubmit={handleSubmitPassword(onSubmitPassword)} className="flex flex-col gap-6 mt-5">
+              <form onSubmit={handleSubmitPassword(onSubmitPassword)} className="flex flex-col gap-4 md:gap-6 mt-4 md:mt-5">
                 {/* Current Password Field */}
-                <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4 ">
+                <div className="flex w-full md:w-96 py-1 px-2 md:px-3 flex-wrap md:flex-nowrap gap-2 md:gap-4">
                   <Input
                     isRequired
                     label="Current Password"
                     classNames={{
-                      label:"!text-black"
+                      label:"!text-black",
+                      inputWrapper: "w-full"
                     }}
                     labelPlacement="outside"
                     placeholder="Enter current password"
@@ -162,9 +175,9 @@ const Profile = () => {
                     endContent={
                       <button className="focus:outline-none" type="button" onClick={toggleCurrentPasswordVisibility}>
                         {isCurrentPasswordVisible ? (
-                          <LuEyeOff size={22} className="text-2xl text-default-400 pointer-events-none" />
+                          <LuEyeOff size={20} className="text-2xl text-default-400 pointer-events-none" />
                         ) : (
-                          <LuEye size={22} className="text-2xl text-default-400 pointer-events-none" />
+                          <LuEye size={20} className="text-2xl text-default-400 pointer-events-none" />
                         )}
                       </button>
                     }
@@ -177,10 +190,11 @@ const Profile = () => {
                 </div>
 
                 {/* New Password Field */}
-                <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4">
+                <div className="flex w-full md:w-96 py-1 px-2 md:px-3 flex-wrap md:flex-nowrap gap-2 md:gap-4">
                   <Input
-                  classNames={{
-                      label:"!text-black"
+                    classNames={{
+                      label:"!text-black",
+                      inputWrapper: "w-full"
                     }}
                     isRequired
                     label="New Password"
@@ -191,9 +205,9 @@ const Profile = () => {
                     endContent={
                       <button className="focus:outline-none" type="button" onClick={toggleNewPasswordVisibility}>
                         {isNewPasswordVisible ? (
-                          <LuEyeOff size={22} className="text-2xl text-default-400 pointer-events-none" />
+                          <LuEyeOff size={20} className="text-2xl text-default-400 pointer-events-none" />
                         ) : (
-                          <LuEye size={22} className="text-2xl text-default-400 pointer-events-none" />
+                          <LuEye size={20} className="text-2xl text-default-400 pointer-events-none" />
                         )}
                       </button>
                     }
@@ -206,11 +220,12 @@ const Profile = () => {
                 </div>
 
                 {/* Confirm Password Field */}
-                <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4">
+                <div className="flex w-full md:w-96 py-1 px-2 md:px-3 flex-wrap md:flex-nowrap gap-2 md:gap-4">
                   <Input
                     isRequired
                     classNames={{
-                      label:"!text-black"
+                      label:"!text-black",
+                      inputWrapper: "w-full"
                     }}
                     label="Confirm Password"
                     labelPlacement="outside"
@@ -220,9 +235,9 @@ const Profile = () => {
                     endContent={
                       <button className="focus:outline-none" type="button" onClick={toggleConfirmPasswordVisibility}>
                         {isConfirmPasswordVisible ? (
-                          <LuEyeOff size={22} className="text-2xl text-default-400 pointer-events-none" />
+                          <LuEyeOff size={20} className="text-2xl text-default-400 pointer-events-none" />
                         ) : (
-                          <LuEye size={22} className="text-2xl text-default-400 pointer-events-none" />
+                          <LuEye size={20} className="text-2xl text-default-400 pointer-events-none" />
                         )}
                       </button>
                     }
@@ -234,9 +249,20 @@ const Profile = () => {
                   />
                 </div>
 
-                <div className='flex gap-3 items-center w-[23rem] justify-between m-4'>
-                  <Button variant='light' className='text-primary rounded-sm w-40 border border-primary bg-white' onClick={() => { setIsChangePassword(false); setIsEdit(false); }}>Cancel</Button>
-                  <Button type='submit' variant='light' className='text-white rounded-sm w-40 bg-primary hover:bg-primary' disabled={isPasswordPending}>
+                <div className='flex gap-3 items-center w-full md:w-[23rem] justify-between mt-2 md:m-4'>
+                  <Button 
+                    variant='light' 
+                    className='text-primary rounded-sm flex-1 md:w-40 border border-primary bg-white' 
+                    onClick={() => { setIsChangePassword(false); setIsEdit(false); }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button 
+                    type='submit' 
+                    variant='light' 
+                    className='text-white rounded-sm flex-1 md:w-40 bg-primary hover:bg-primary' 
+                    disabled={isPasswordPending}
+                  >
                     {isPasswordPending ? "Changing..." : "Change Password"}
                   </Button>
                 </div>
@@ -245,24 +271,25 @@ const Profile = () => {
           ) : (
             <div>
               {isEdit ? (
-                <div className='flex gap-4 items-center'>
-                  <MdEdit size={27} />
-                  <h1 className='text-xl font-semibold'>Edit Information</h1>
+                <div className='flex gap-3 md:gap-4 items-center'>
+                  <MdEdit size={24} />
+                  <h1 className='text-lg md:text-xl font-semibold'>Edit Information</h1>
                 </div>
               ) : (
-                <div className='flex gap-4 items-center'>
-                  <FaUser size={20} />
-                  <h1 className='text-xl font-semibold'>Personal Information</h1>
+                <div className='flex gap-3 md:gap-4 items-center'>
+                  <FaUser size={18}/>
+                  <h1 className='text-lg md:text-xl font-semibold'>Personal Information</h1>
                 </div>
               )}
               {isEdit ? (
-                <form onSubmit={handleSubmitProfile(onSubmitProfile)} className='flex flex-col gap-6 mt-5 '>
-                  <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4">
+                <form onSubmit={handleSubmitProfile(onSubmitProfile)} className='flex flex-col gap-4 md:gap-6 mt-4 md:mt-5'>
+                  <div className="flex w-full md:w-96 py-1 px-2 md:px-3 flex-wrap md:flex-nowrap gap-2 md:gap-4">
                     <Input
                       variant='bordered'
                       classNames={{
-                      label:"!text-black"
-                    }}
+                        label:"!text-black",
+                        inputWrapper: "w-full"
+                      }}
                       label="Name"
                       labelPlacement='outside'
                       placeholder="Enter name"
@@ -271,12 +298,13 @@ const Profile = () => {
                       {...registerProfile("name")}
                     />
                   </div>
-                  <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4">
+                  <div className="flex w-full md:w-96 py-1 px-2 md:px-3 flex-wrap md:flex-nowrap gap-2 md:gap-4">
                     <Input
                       variant='bordered'
                       classNames={{
-                      label:"!text-black"
-                    }}
+                        label:"!text-black",
+                        inputWrapper: "w-full"
+                      }}
                       label="Email"
                       labelPlacement='outside'
                       placeholder="Enter email"
@@ -285,24 +313,51 @@ const Profile = () => {
                       {...registerProfile("email")}
                     />
                   </div>
-                  <div className='flex gap-3 items-center w-[23rem] justify-between m-4'>
-                    <Button variant='light' className='text-primary rounded-sm w-40 border border-primary bg-white' onClick={() => setIsEdit(false)}>Cancel Edit</Button>
-                    <Button type='submit' variant='light' className='text-white rounded-sm w-40 bg-primary hover:bg-primary' disabled={isProfilePending}>
+                  <div className='flex gap-3 items-center w-full md:w-[23rem] justify-between mt-2 md:m-4'>
+                    <Button 
+                      variant='light' 
+                      className='text-primary rounded-sm flex-1 md:w-40 border border-primary bg-white' 
+                      onClick={() => setIsEdit(false)}
+                    >
+                      Cancel Edit
+                    </Button>
+                    <Button 
+                      type='submit' 
+                      variant='light' 
+                      className='text-white rounded-sm flex-1 md:w-40 bg-primary hover:bg-primary' 
+                      disabled={isProfilePending}
+                    >
                       {isProfilePending ? "Saving..." : "Save Changes"}
                     </Button>
                   </div>
                 </form>
               ) : (
-                <div className='flex flex-col gap-6 mt-5'>
-                  <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4 ">
-                    <Input disabled variant='bordered' classNames={{
-                      label:"!text-black"
-                    }} label="Name" labelPlacement='outside' placeholder={session?.user?.name}  />
+                <div className='flex flex-col gap-4 md:gap-6 mt-4 md:mt-5'>
+                  <div className="flex w-full md:w-96 py-1 px-2 md:px-3 flex-wrap md:flex-nowrap gap-2 md:gap-4">
+                    <Input 
+                      disabled 
+                      variant='bordered' 
+                      classNames={{
+                        label:"!text-black",
+                        inputWrapper: "w-full"
+                      }} 
+                      label="Name" 
+                      labelPlacement='outside' 
+                      placeholder={session?.user?.name}  
+                    />
                   </div>
-                  <div className="flex w-96 py-1 px-3 flex-wrap md:flex-nowrap gap-4">
-                    <Input disabled variant='bordered' classNames={{
-                      label:"!text-black"
-                    }} label="Email" labelPlacement='outside' placeholder={session?.user?.email}  />
+                  <div className="flex w-full md:w-96 py-1 px-2 md:px-3 flex-wrap md:flex-nowrap gap-2 md:gap-4">
+                    <Input 
+                      disabled 
+                      variant='bordered' 
+                      classNames={{
+                        label:"!text-black",
+                        inputWrapper: "w-full"
+                      }} 
+                      label="Email" 
+                      labelPlacement='outside' 
+                      placeholder={session?.user?.email}  
+                    />
                   </div>
                 </div>
               )}

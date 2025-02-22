@@ -18,7 +18,7 @@ const CustomPrevArrow: React.FC<CustomArrowComponentProps> = ({ onClick }) => (
     <Button
         isIconOnly
         onClick={onClick}
-        className="absolute -left-8 top-1/2 text-white -translate-y-1/2 z-10 bg-primary hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
+        className="absolute lg:-left-8 left-0 top-1/2 text-white -translate-y-1/2 z-10 bg-primary hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
     >
         <FaChevronLeft />
     </Button>
@@ -28,7 +28,7 @@ const CustomNextArrow: React.FC<CustomArrowComponentProps> = ({ onClick }) => (
     <Button
         isIconOnly
         onClick={onClick}
-        className="absolute -right-8 top-1/2 text-white -translate-y-1/2 z-10 bg-primary hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
+        className="absolute lg:-right-8 right-0 top-1/2 text-white -translate-y-1/2 z-10 bg-primary hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
     >
         <FaChevronRight/>
     </Button>
@@ -86,7 +86,7 @@ const WhyUs = () => {
         ]
     };
     return (
-        <div className='w-full px-16'>
+        <div className='w-full lg:px-16 px-4'>
             <SharedTitle title='Rudraksha Benefits'/>
             <div className='w-full  pb-12'>
                 <Slider {...settings}>
@@ -101,7 +101,7 @@ const WhyUs = () => {
                                     <div className='bg-white rounded-sm shadow-md px-4'>
                                         <div className='flex gap-5 w-full my-4 px-4'>
                                             <div className='h-auto bg-primary w-[4px] rounded-md'></div>
-                                            <h1 className={`${josefin.className} font-semibold text-xl`}>{item.title}</h1>
+                                            <h1 className={`${josefin.className} font-semibold lg:text-xl text-base`}>{item.title}</h1>
                                         </div>
                                     </div>
                                     <div className='relative px-6 py-4 bg-white'>

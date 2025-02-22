@@ -66,9 +66,9 @@ const About = () => {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 flex items-center">
-          <div className="max-w-3xl px-16 ml-12 text-white">
+          <div className="max-w-3xl lg:px-16 px-4 lg:ml-12 ml-4 text-white">
             <motion.h1 
-              className="text-5xl font-bold mb-6"
+              className="lg:text-5xl text-3xl font-bold mb-6"
               {...fadeInUp}
             >
               Our Journey with Rudraksha

@@ -26,15 +26,15 @@ const MainHome = () => {
         };
     return (
         <>
-            <div className='w-full h-[90vh] flex items-center justify-center relative'>
-                <div className='bg-zinc-200 h-full flex items-center justify-left w-full relative px-24'>
+            <div className='w-full lg:h-[90vh] h-[60vh] flex items-center justify-center relative'>
+                <div className='bg-zinc-200 h-full flex items-center justify-left w-full relative lg:px-24 px-4'>
                     <div className='h-full absolute inset-0 w-full opacity-[.6]' style={{backgroundImage:"url('/bg-2.png')",backgroundPosition:"top 0px center",backgroundSize:"cover"}}>
                     </div>
-                    <div className='relative text-left w-4/5'>
-                        <h1 className='font-medium text-4xl w-2/3'>
+                    <div className='relative text-left lg:w-4/5 w-full'>
+                        <h1 className='font-medium lg:text-4xl text-2xl lg:w-2/3 w-full'>
                             Discover the Power of Authentic Rudraksha Beads
                         </h1>
-                        <p className='text-base w-4/5 my-4'>Handpicked, spiritually enriched, and rooted in tradition—our collection of sacred rudraksha beads brings you closer to tranquility, health, and prosperity. Experience the divine energy and unlock your spiritual potential today.
+                        <p className='text-base lg:w-4/5 w-full my-4'>Handpicked, spiritually enriched, and rooted in tradition—our collection of sacred rudraksha beads brings you closer to tranquility, health, and prosperity. Experience the divine energy and unlock your spiritual potential today.
                         </p>
                         <form action="" onSubmit={handleSearch}>
                                 <Input 
@@ -48,7 +48,7 @@ const MainHome = () => {
                                     value={searchQuery}
                                     onChange={handleInputChange}
                                     placeholder="Search what you are looking for..." 
-                                    className='rounded-sm mt-20 w-3/5' 
+                                    className='rounded-sm mt-20 lg:w-3/5 w-full' 
                                     radius='sm' 
                                     startContent={<CiSearch size={32} className='text-black mr-2'/>} 
                                     endContent={<Button className='bg-primary rounded-sm px-8 py-0 text-white' size='sm' type='submit' isDisabled={!searchQuery.trim()}>Search</Button>} 

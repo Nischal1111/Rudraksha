@@ -29,7 +29,7 @@ const Policy = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 flex items-center justify-center">
           <div className="text-white">
             <motion.h1
-              className="text-5xl font-bold mb-6"
+              className="lg:text-5xl text-3xl font-bold mb-6"
               {...fadeInUp}
             >
               Privacy and Policy

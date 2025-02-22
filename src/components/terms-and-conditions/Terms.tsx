@@ -28,7 +28,7 @@ const Terms = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30 flex items-center justify-center">
           <div className="text-white">
-            <motion.h1 className="text-5xl font-bold mb-6" {...fadeInUp}>
+            <motion.h1 className="lg:text-5xl text-3xl font-bold mb-6" {...fadeInUp}>
               Terms and Conditions
             </motion.h1>
           </div>
@@ -36,7 +36,7 @@ const Terms = () => {
       </motion.div>
       <div>
         <SharedTitle title="Terms and Conditions" classname="text-4xl" />
-        <div className="px-14 py-7 flex flex-col gap-8 leading-8">
+        <div className="lg:px-14 px-4 py-7 flex flex-col gap-8 leading-8">
           <div>
             <p>Welcome to Khadbari! By using our website and purchasing our products, you agree to comply with the following terms and conditions. Please read them carefully.</p>
           </div>

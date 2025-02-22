@@ -20,7 +20,7 @@ const CustomPrevArrow: React.FC<CustomArrowComponentProps> = ({ onClick }) => (
     <Button
         isIconOnly
         onClick={onClick}
-        className="absolute -left-8 top-1/2 text-white -translate-y-1/2 z-10 bg-primary hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
+        className="absolute lg:-left-8 left-0 top-1/2 text-white -translate-y-1/2 z-10 bg-primary hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
     >
         <FaChevronLeft />
     </Button>
@@ -30,7 +30,7 @@ const CustomNextArrow: React.FC<CustomArrowComponentProps> = ({ onClick }) => (
     <Button
         isIconOnly
         onClick={onClick}
-        className="absolute -right-8 top-1/2 text-white -translate-y-1/2 z-10 bg-primary hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
+        className="absolute lg:-right-8 right-0 top-1/2 text-white -translate-y-1/2 z-10 bg-primary hover:bg-opacity-100 rounded-full p-2 transition-all duration-300"
     >
         <FaChevronRight/>
     </Button>
@@ -73,7 +73,7 @@ const ProductsHome = () => {
     if(isLoading) return <Loader/>
 
     return (
-        <div className='w-full relative flex flex-col px-24 bg-primary/10'>
+        <div className='w-full relative flex flex-col lg:px-24 px-4 bg-primary/10'>
             <SharedTitle title="Top Selling Products"/>
             <p className='text-justify mb-8'>Rudraksha beads are sacred seeds revered for their spiritual and healing properties. Rooted in ancient traditions and mentioned in sacred texts, authentic rudraksha is a divine gift from nature, believed to be blessed by Lord Shiva. Each bead carries unique energies that promote mental clarity, emotional balance, and spiritual growth.</p>
             <div className='w-full  pb-12'>
@@ -82,9 +82,11 @@ const ProductsHome = () => {
                         return(
                             <div className='px-4' key={item._id}>
                                 <div className=' w-full bg-white flex flex-col shadow-sm'>
+                                    <Link href={`/rudraksha/${item._id}`} className='flex w-full items-center justify-center cursor-pointer'>
                                     <div className='h-[200px] w-full'>
-                                        <Image src={item?.img?.[0]} alt='rud' height={1000} width={1000} className='object-cover w-full h-full'/>
+                                            <Image src={item?.img?.[0]} alt='rud' height={1000} width={1000} className='object-cover w-full h-full'/>
                                     </div>
+                                    </Link>
                                     <div className='px-4 py-4 flex items-center gap-2 justify-between'>
                                         <h1 className=' font-semibold'>{item.title}</h1>
                                         <div className='bg-primary text-sm rounded-2xl text-white px-4 py-1'>

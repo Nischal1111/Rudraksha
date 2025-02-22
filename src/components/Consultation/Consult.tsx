@@ -300,8 +300,8 @@ const ConsultationPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-full lg:h-[80vh] h-[70vh] px-24 mb-12">
-        <SharedTitle title="Visit Us At" classname='text-5xl'/>
+      <div className="w-full lg:h-[80vh] h-[70vh] lg:px-24 px-4 mb-12">
+        <SharedTitle title="Visit Us At" classname='lg:text-5xl text-3xl'/>
         <iframe 
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3542.4569905908816!2d87.2120599!3d27.392668999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e8c7002a48f253%3A0x879bd1fd194f42c3!2sSankhuwasabha%20khandbari!5e0!3m2!1sen!2snp!4v1736881633500!5m2!1sen!2snp" 
           width="100%"

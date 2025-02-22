@@ -30,7 +30,7 @@ const CountryBeads = () => {
     return (
         <div className='w-full'>
             <SharedTitle title='Exclusively From Us'/>
-            <div className='w-full my-8 -mt-4 flex flex-col px-16 items-center justify-center'>
+            <div className='w-full my-8 -mt-4 flex flex-col lg:px-16 px-4 items-center justify-center'>
                 <Tabs 
                     key="tabs" 
                     className='mb-4' 
@@ -44,7 +44,7 @@ const CountryBeads = () => {
                 >
                     <Tab key="Nepal" title="Nepal">
                         <h1 className='text-justify'>{descriptions.Nepal}</h1>
-                        <div className='w-full grid grid-cols-4 gap-4 my-8'>
+                        <div className='w-full grid lg:grid-cols-4 grid-cols-2 gap-4 my-8'>
                             {countryData?.products?.filter((item:any) => item.country === "Nepal").map((item:any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
                                 <div key={item._id} className='mb-4 w-full bg-white flex flex-col shadow-sm'>
                                     <div className='h-[200px] w-full'>
@@ -76,7 +76,7 @@ const CountryBeads = () => {
                     </Tab>
                     <Tab key="Indonesia" title="Indonesia">
                         <p className='text-justify'>{descriptions.Indonesia}</p>
-                        <div className='w-full grid grid-cols-4 gap-4 my-8'>
+                        <div className='w-full grid lg:grid-cols-4 grid-cols-2 gap-4 my-8'>
                             {countryData?.products?.filter((item:any) => item.country === "Indonesia").map((item:any) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
                                 <div key={item._id} className='mb-4 w-full bg-white flex flex-col shadow-sm'>
                                     <div className='h-[200px] w-full'>

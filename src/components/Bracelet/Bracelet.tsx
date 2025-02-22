@@ -129,7 +129,7 @@ const Bracelet = () => {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Sidebar Filters */}
-          <div className={`md:w-1/4 bg-white rounded-xl shadow-md p-6 h-fit
+          <div className={`md:w-1/4 bg-white rounded-xl shadow-md mt-20 p-6 h-fit
             ${isSidebarOpen ? 'fixed inset-0 z-50 md:relative' : 'hidden md:block'}`}>
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-semibold">Filters</h3>
@@ -253,14 +253,18 @@ const Bracelet = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {productsData?.products.map((product) => (
                   <div key={product._id} className="group bg-white rounded-xl shadow-lg overflow-hidden hover:-translate-y-1 transition-all duration-300">
-                    <div className="relative h-48 w-full overflow-hidden">
-                      <Image
-                        src={product.img[0]}
-                        alt={product.title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    </div>
+                    <Link
+                        href={`/rudraksha/${product._id}`}
+                      >
+                      <div className="relative h-48 w-full overflow-hidden">
+                        <Image
+                          src={product.img[0]}
+                          alt={product.title}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      </div>
+                      </Link>
                     <div className="px-6 py-2">
                         <div className='flex items-center justify-between gap-2'>
                           <h4 className="text-xl font-semibold mb-2">{product.title}</h4>
