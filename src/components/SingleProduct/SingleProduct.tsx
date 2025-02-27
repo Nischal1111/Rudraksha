@@ -85,7 +85,7 @@ const SingleProduct: React.FC = () => {
   const sliderRef1 = useRef<Slider | null>(null);
   const sliderRef2 = useRef<Slider | null>(null);
   const [login,setLogin] = useState(false)
-  const {data:sessionData,status}=useSession()
+  const {status}=useSession()
 
   const handleLogin = () => {
     setLogin(true)
