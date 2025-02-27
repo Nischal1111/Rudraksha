@@ -31,6 +31,8 @@ import RelatedProducts from './RelatedProducts';
 import Link from 'next/link';
 import { getValidImageUrl } from '@/utils/imageUtils';
 import ChooseUs from '../MainHome/ChooseUs';
+import { useSession } from 'next-auth/react';
+import Login from '@/shared/Login/Login';
 
 interface BenefitCardProps {
   icon: React.ElementType;
@@ -82,6 +84,12 @@ const SingleProduct: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<string>("details");
   const sliderRef1 = useRef<Slider | null>(null);
   const sliderRef2 = useRef<Slider | null>(null);
+  const [login,setLogin] = useState(false)
+  const {data:sessionData,status}=useSession()
+
+  const handleLogin = () => {
+    setLogin(true)
+  }
   
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -95,6 +103,10 @@ const SingleProduct: React.FC = () => {
   });
 
   const handleCart = () => {
+    if(status==="unauthenticated"){
+        handleLogin()
+        return
+    }
     if (!singleProduct?.product) return;
     
     if (isInCart) {
@@ -169,6 +181,8 @@ const SingleProduct: React.FC = () => {
   if (!singleProduct?.product) return null;
 
   return (
+    <>
+    <Login isOpen={login} onOpenChange={setLogin} />
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -353,6 +367,7 @@ const SingleProduct: React.FC = () => {
         <ChooseUs/>
       </div>
     </motion.div>
+    </>
   );
 };
 
