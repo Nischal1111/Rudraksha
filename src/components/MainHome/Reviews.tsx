@@ -39,7 +39,7 @@ const CustomNextArrow: React.FC<CustomArrowComponentProps> = ({ onClick }) => (
     </Button>
 )
 
-interface Review{
+export interface Review{
     _id: number;
     userID:{
         fullName: string;
