@@ -44,7 +44,8 @@ const Navbar = () => {
         { title: "About", link: "/about" },
         { title: "FAQs", link: "/faqs" },
         { title: "Privacy Policy", link: "/privacy-policy" },
-        { title: "Terms and Conditions", link: "/terms-and-conditions" }
+        { title: "Terms and Conditions", link: "/terms-and-conditions" },
+        { title: "View Reviews", link: "/reviews" }
     ]
 
     const pathname = usePathname()

@@ -86,7 +86,7 @@ const Footer = () => {
                         <div className='flex flex-col gap-2'>
                             <FooterLink href="/consultation">Customized Products</FooterLink>
                             <FooterLink href="/consultation">Free Consultation</FooterLink>
-                            <FooterLink href="/">Social Cause</FooterLink>
+                            <FooterLink href="/reviews">View Reviews</FooterLink>
                         </div>
                     </section>
                 </main>
