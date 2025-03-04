@@ -103,6 +103,130 @@ const Policy = () => {
           <div>
             <p>Khadbari is dedicated to providing an enriching experience for our customers, ensuring that our products bring spiritual well-being and satisfaction.</p>
           </div>
+          
+          {/* Privacy Policy Section */}
+          <div className='mt-12'>
+            <SharedTitle title="Privacy Policy - Khandbari Rudraksha" classname="text-4xl" />
+            <div className='flex flex-col gap-6 mt-6'>
+              <div>
+                <h2 className='text-2xl font-semibold'>Introduction</h2>
+                <p className='mt-2'>
+                  At <strong>Khandbari Rudraksha</strong>, we deeply value the trust you place in us when you visit our website or engage with our services. 
+                  This Privacy Policy outlines our commitment to safeguarding your privacy and respecting the confidentiality of your personal information. 
+                  Here, we explain the types of information we collect, how we use it, the circumstances under which we may share it, and the measures we take to protect it.
+                </p>
+              </div>
+              
+              <div>
+                <h2 className='text-2xl font-semibold'>Information We Collect</h2>
+                <div className='mt-2'>
+                  <h3 className='text-lg font-semibold'>1. Personal Information:</h3>
+                  <p>
+                    We may collect personal information through various interactions, such as when you visit our website, make a purchase, sign up for updates, 
+                    contact us for inquiries, or engage with us through social media. The personal information we collect may include:
+                  </p>
+                  <ul className='list-inside list-disc mt-2'>
+                    <li>Name</li>
+                    <li>Postal address</li>
+                    <li>Email address</li>
+                    <li>Phone number</li>
+                    <li>Date of birth (if provided)</li>
+                    <li>Any other details you willingly share with us</li>
+                  </ul>
+                </div>
+                
+                <div className='mt-4'>
+                  <h3 className='text-lg font-semibold'>2. Usage Information:</h3>
+                  <p>
+                    When you interact with our website, we may automatically collect certain information to enhance your experience. This may include:
+                  </p>
+                  <ul className='list-inside list-disc mt-2'>
+                    <li>IP address</li>
+                    <li>Device type and browser information</li>
+                    <li>Location data (if location-based services are enabled)</li>
+                    <li>Website usage data collected through cookies and tracking technologies</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div>
+                <h2 className='text-2xl font-semibold'>How We Use the Information</h2>
+                <p className='mt-2'>We use the information we collect to:</p>
+                <ul className='list-inside list-disc mt-2'>
+                  <li>Fulfill and manage your orders for our products.</li>
+                  <li>Respond to your inquiries and provide customer support.</li>
+                  <li>Send important updates regarding our services, terms, and policies.</li>
+                  <li>Share offers, promotions, and news about our products (with your consent).</li>
+                  <li>Conduct data analysis to improve our services and offerings.</li>
+                  <li>Protect against fraud and unauthorized transactions.</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h2 className='text-2xl font-semibold'>Information We Share</h2>
+                <p className='mt-2'>
+                  We do not sell or trade your personal information. However, we may share it in the following situations:
+                </p>
+                <ul className='list-inside list-disc mt-2'>
+                  <li>
+                    <strong>With Service Providers:</strong> We may share your data with trusted service providers who assist us with payment processing, 
+                    order fulfillment, and marketing efforts. They are obligated to handle your data securely.
+                  </li>
+                  <li>
+                    <strong>Legal Requirements:</strong> If required by law or legal processes, we may share information with authorities to protect our rights, 
+                    customers, and business.
+                  </li>
+                  <li>
+                    <strong>With Your Consent:</strong> In cases where we wish to share your information beyond these stated purposes, 
+                    we will do so only with your explicit consent.
+                  </li>
+                </ul>
+              </div>
+              
+              <div>
+                <h2 className='text-2xl font-semibold'>Protection of Your Information</h2>
+                <p className='mt-2'>
+                  We implement a variety of security measures—administrative, physical, and technical—to safeguard your personal information. 
+                  While we strive to protect your data, no system is completely foolproof. 
+                  We remain committed to continuously enhancing our security measures.
+                </p>
+              </div>
+              
+              <div>
+                <h2 className='text-2xl font-semibold'>Your Rights and Choices</h2>
+                <p className='mt-2'>We respect your rights regarding your personal information. You may:</p>
+                <ul className='list-inside list-disc mt-2'>
+                  <li>Opt out of marketing emails using the unsubscribe option provided.</li>
+                  <li>Request updates or corrections to your personal information.</li>
+                  <li>Contact us to inquire about the data we hold about you.</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h2 className='text-2xl font-semibold'>Updates to Our Privacy Policy</h2>
+                <p className='mt-2'>
+                  We may update this Privacy Policy periodically. Any significant changes will be posted on this page, and where appropriate, 
+                  we will notify you through other communication channels. We encourage you to review this policy periodically to stay informed.
+                </p>
+              </div>
+              
+              <div>
+                <h2 className='text-2xl font-semibold'>How to Contact Us</h2>
+                <p className='mt-2'>
+                  If you have any questions or concerns about this Privacy Policy or wish to update your information, please contact us at:
+                </p>
+                <p className='mt-2'>📧 Email: <a href="mailto:khandbarirudraksha@gmail.com" className='text-blue-600 hover:underline'>khandbarirudraksha@gmail.com</a></p>
+              </div>
+              
+              <div className='mt-4'>
+                <p>
+                  Your privacy is of utmost importance to us. By using our website, you acknowledge and accept the practices described in this Privacy Policy. 
+                  If you do not agree with any part of this policy, we kindly request that you refrain from using our services.
+                </p>
+                <p className='mt-4 font-medium'>Thank you for trusting Khandbari Rudraksha.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

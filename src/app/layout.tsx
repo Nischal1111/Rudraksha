@@ -6,6 +6,7 @@ import ScrollToTop from "@/shared/ScrollToTop";
 import { Toaster } from "sonner";
 import Footer from "@/shared/Footer/Footer";
 import { Providers } from "@/store/providers";
+import Whatsapp from "@/shared/Whatsapp/Whatsapp";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -111,6 +112,7 @@ export default function RootLayout({
           </main>
           <ScrollToTop />
           <Footer />
+          <Whatsapp/>
         </Providers>
       </body>
     </html>

@@ -34,37 +34,74 @@ const Terms = () => {
           </div>
         </div>
       </motion.div>
-      <div>
+      <div className="lg:px-20 px-4 py-7">
         <SharedTitle title="Terms and Conditions" classname="text-4xl" />
-        <div className="lg:px-14 px-4 py-7 flex flex-col gap-8 leading-8">
+        <div className="mt-4 text-right text-gray-600">
+          <p>Last Updated: March 4, 2025</p>
+        </div>
+        <div className="flex flex-col gap-8 leading-8 mt-6">
           <div>
-            <p>Welcome to Khadbari! By using our website and purchasing our products, you agree to comply with the following terms and conditions. Please read them carefully.</p>
+            <p>Welcome to Khadbari Rudraksha! By accessing or using our website, you agree to be bound by these Terms and Conditions. Please read them carefully before making any purchase or using our services.</p>
           </div>
           <div className="flex flex-col gap-4">
             <h1 className="text-2xl font-semibold">1. Introduction</h1>
-            <p>These Terms and Conditions govern your use of our website, www.khadbari.com, and the purchase of products from our site. By accessing our website, you accept these terms in full. If you disagree with any part of these terms, please do not use our website.</p>
-            <h1 className="text-2xl font-semibold">2. Use of the Website</h1>
-            <p>You must be at least 18 years old to use this website or have parental permission. You agree not to use the website for any unlawful purpose or in a way that infringes the rights of, restricts, or inhibits anyone else&apos;s use and enjoyment of the website.</p>
-            <h1 className="text-2xl font-semibold">3. Products</h1>
-            <p>All products are subject to availability. We reserve the right to discontinue any product at any time without notice. We strive to ensure that product descriptions, prices, and availability information are accurate. However, errors may occur, and we reserve the right to correct them.</p>
+            <p>Khadbari Rudraksha is committed to providing high-quality, authentic rudraksha beads directly sourced from farmers. Our platform ensures fair pricing and supports social impact initiatives. By using our website, you acknowledge and agree to comply with the terms outlined below.</p>
+            
+            <h1 className="text-2xl font-semibold">2. Eligibility</h1>
+            <p>By using this website, you confirm that you are at least 18 years old or have the permission of a legal guardian to make a purchase. You also agree that the information you provide is accurate and complete.</p>
+            
+            <h1 className="text-2xl font-semibold">3. Product Authenticity</h1>
+            <p>We guarantee that all our rudraksha beads are genuine and sourced responsibly. However, as rudraksha is a natural product, slight variations in size, shape, and color may occur.</p>
+            
             <h1 className="text-2xl font-semibold">4. Orders and Payments</h1>
-            <p>By placing an order, you are offering to purchase a product subject to these terms. All orders are subject to availability and confirmation of the order price. We accept various payment methods, as detailed on the website. You agree to provide current, complete, and accurate purchase and account information for all purchases made at our store.</p>
+            <ul className="list-disc pl-6 mt-2">
+              <li>Orders can be placed through our website following the outlined steps.</li>
+              <li>Full payment must be made at the time of purchase through our accepted payment methods.</li>
+              <li>We reserve the right to cancel or refuse any order due to unforeseen circumstances, such as stock unavailability or pricing errors.</li>
+            </ul>
+            
             <h1 className="text-2xl font-semibold">5. Shipping and Delivery</h1>
-            <p>We ship products to Nepal and Indonesia, with estimated delivery times provided during checkout. Shipping costs and times are subject to change based on the shipping destination and method chosen. We are not responsible for delays caused by customs clearance processes.</p>
+            <ul className="list-disc pl-6 mt-2">
+              <li>We aim to process and ship orders promptly. Delivery times may vary depending on your location and external factors.</li>
+              <li>Any customs duties or taxes imposed by local authorities are the buyer&apos;s responsibility.</li>
+              <li>We are not liable for delays caused by courier services or other third parties.</li>
+            </ul>
+            
             <h1 className="text-2xl font-semibold">6. Returns and Refunds</h1>
-            <p>If you are not satisfied with your purchase, you may return it within [X] days of receipt, subject to our return policy. Products must be returned in their original condition, with proof of purchase. Refunds will be processed within [X] business days after receiving the returned item.</p>
-            <h1 className="text-2xl font-semibold">7. Privacy Policy</h1>
-            <p>Your privacy is important to us. Please refer to our Privacy Policy for details on how we collect, use, and protect your information.</p>
-            <h1 className="text-2xl font-semibold">8. Intellectual Property</h1>
-            <p>All content on the website, including text, graphics, logos, images, and software, is the property of Khadbari and is protected by intellectual property laws. You may not use, reproduce, or distribute any content from the website without our explicit permission.</p>
+            <ul className="list-disc pl-6 mt-2">
+              <li>If you receive a defective or incorrect product, please contact us within 7 days of delivery for a resolution.</li>
+              <li>Returns must be in unused condition, with original packaging and proof of purchase.</li>
+              <li>Refunds or exchanges will be processed based on our inspection of the returned item.</li>
+            </ul>
+            
+            <h1 className="text-2xl font-semibold">7. User Conduct</h1>
+            <p>By using our website, you agree not to:</p>
+            <ul className="list-disc pl-6 mt-2">
+              <li>Engage in fraudulent or unlawful activities.</li>
+              <li>Violate any intellectual property rights related to our content.</li>
+              <li>Disrupt or compromise the security of our platform.</li>
+            </ul>
+            
+            <h1 className="text-2xl font-semibold">8. Privacy Policy</h1>
+            <p>Your personal information is handled in accordance with our Privacy Policy, which outlines how we collect, use, and protect your data.</p>
+            
             <h1 className="text-2xl font-semibold">9. Limitation of Liability</h1>
-            <p>Khadbari shall not be liable for any indirect, incidental, special, or consequential damages resulting from the use or the inability to use our website or products. Our liability for any claim arising from the purchase of a product will be limited to the amount you paid for that product.</p>
-            <h1 className="text-2xl font-semibold">10. Governing Law</h1>
-            <p>These terms shall be governed and construed in accordance with the laws of [Nepal/Indonesia], without regard to its conflict of law provisions. Any disputes arising under these terms shall be subject to the exclusive jurisdiction of the courts located in [Nepal/Indonesia].</p>
-            <h1 className="text-2xl font-semibold">11. Changes to Terms and Conditions</h1>
-            <p>We reserve the right to update or modify these terms at any time without prior notice. It is your responsibility to review these terms periodically for any changes.</p>
+            <p>Khadbari Rudraksha is not responsible for any indirect, incidental, or consequential damages arising from the use of our products or website.</p>
+            
+            <h1 className="text-2xl font-semibold">10. Changes to Terms and Conditions</h1>
+            <p>We may update these Terms and Conditions periodically. Continued use of our website after changes are posted constitutes acceptance of the new terms.</p>
+            
+            <h1 className="text-2xl font-semibold">11. Governing Law</h1>
+            <p>These Terms and Conditions are governed by the laws of Nepal. Any disputes will be resolved in accordance with Nepalese legal jurisdiction.</p>
+            
             <h1 className="text-2xl font-semibold">12. Contact Information</h1>
-            <p>For any questions or concerns about these Terms and Conditions, please contact us at [email address] or [phone number].</p>
+            <p>For any questions or concerns regarding these terms, please contact us at <a href="mailto:Khandbarirudraksha@gmail.com" target='_blank' className="text-blue-600 hover:underline">Khandbarirudraksha@gmail.com</a>.</p>
+          </div>
+          
+          <div className="mt-8 border-t pt-6">
+            <p className="font-medium">
+              By using our website and services, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.
+            </p>
           </div>
         </div>
       </div>

@@ -6,13 +6,13 @@ import { FaXTwitter } from 'react-icons/fa6'
 import { BsArrowRight } from 'react-icons/bs'
 import Link from 'next/link'
 
-const FooterLink = ({ children}:{children:string}) => (
-  <p className="text-sm font-semibold flex items-center gap-2 group cursor-pointer text-zinc-800 hover:text-black">
+const FooterLink = ({ href, children }: { href: string, children: string }) => (
+  <Link href={href} className="text-sm font-semibold flex items-center gap-2 group cursor-pointer text-zinc-800 hover:text-black">
     <span className="group-hover:translate-x-1 group-hover:underline transition-all duration-300">
-      {children}
+        {children}
     </span>
     <BsArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" size={12} />
-  </p>
+  </Link>
 )
 
 const Footer = () => {
@@ -57,11 +57,11 @@ const Footer = () => {
                             <div className='w-24 bg-black h-[1px]'></div>
                         </div>
                         <div className='flex flex-col gap-2'>
-                            <FooterLink>Home</FooterLink>
-                            <FooterLink>Rudraksha</FooterLink>
-                            <FooterLink>Categories</FooterLink>
-                            <FooterLink>About Us</FooterLink>
-                            <FooterLink>Consultation</FooterLink>
+                            <FooterLink href="/">Home</FooterLink>
+                            <FooterLink href="/rudraksha">Rudraksha</FooterLink>
+                            <FooterLink href="/mala">Mala</FooterLink>
+                            <FooterLink href="/bracelet">Bracelet</FooterLink>
+                            <FooterLink href="/consultation">Consultation</FooterLink>
                         </div>
                     </section>
 
@@ -71,11 +71,10 @@ const Footer = () => {
                             <div className='w-24 bg-black h-[1px]'></div>
                         </div>
                         <div className='flex flex-col gap-2'>
-                            <FooterLink>Privacy Policy</FooterLink>
-                            <FooterLink>Our Team</FooterLink>
-                            <FooterLink>FAQs</FooterLink>
-                            <FooterLink>Terms and Conditions</FooterLink>
-                            <FooterLink>Privacy Policy</FooterLink>
+                            <FooterLink href="/privacy-policy">Privacy Policy</FooterLink>
+                            <FooterLink href="/about">About Us</FooterLink>
+                            <FooterLink href="/faqs">FAQs</FooterLink>
+                            <FooterLink href="/terms-and-conditions">Terms and Conditions</FooterLink>
                         </div>
                     </section>
 
@@ -85,9 +84,9 @@ const Footer = () => {
                             <div className='w-24 bg-black h-[1px]'></div>
                         </div>
                         <div className='flex flex-col gap-2'>
-                            <FooterLink>Customized Products</FooterLink>
-                            <FooterLink>Free Consulation</FooterLink>
-                            <FooterLink>Social Cause</FooterLink>
+                            <FooterLink href="/consultation">Customized Products</FooterLink>
+                            <FooterLink href="/consultation">Free Consultation</FooterLink>
+                            <FooterLink href="/">Social Cause</FooterLink>
                         </div>
                     </section>
                 </main>

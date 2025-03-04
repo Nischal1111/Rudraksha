@@ -36,6 +36,7 @@ const Navbar = () => {
         { title: "Rudraksha", link: "/rudraksha" },
         { title: "Mala", link: "/mala" },
         { title: "Bracelet", link: "/bracelet" },
+        {title:"Exclusives",link:"/exclusive"},
         { title: "Consultation", link: "/consultation" }
     ]
 
