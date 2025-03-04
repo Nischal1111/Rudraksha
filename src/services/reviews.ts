@@ -1,5 +1,4 @@
 import axios from "axios"
-import page from '../app/reviews/page';
 export interface Review {
     userID:string,
     rating:number,
@@ -25,7 +24,7 @@ export const getReviewsSlider = async () => {
 }
 export const getReviews = async (limit:number,page:number) => {
     try{
-        const res=await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/review/get?page=${page}&limit=${limit}`)
+        const res=await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/review/get?page=${page}&limit=`)
         return res.data
     }catch(error){
         console.log(error)
