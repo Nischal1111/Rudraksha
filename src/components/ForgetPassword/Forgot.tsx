@@ -25,7 +25,7 @@ const Forgot=()=> {
         localStorage.setItem("resetPasswordEmail", emailForm.getValues().email);
         router.push("/otp");
         },
-        onError: (error: any) => {
+        onError: (error: any) => { //eslint-disable-line @typescript-eslint/no-explicit-any
         toast.error(error?.response?.data?.message || "Failed to send OTP");
         setErrorMessage(error?.response?.data?.message || "Failed to send OTP");
         }

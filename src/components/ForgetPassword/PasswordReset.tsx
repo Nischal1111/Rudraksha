@@ -49,7 +49,7 @@ const PasswordReset=()=> {
         router.push("/");
       }, 1500);
     },
-    onError: (error: any) => {
+    onError: (error: any) => { //eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(error?.response?.data?.message || "Failed to reset password");
       setErrorMessage(error?.response?.data?.message || "Failed to reset password");
     }

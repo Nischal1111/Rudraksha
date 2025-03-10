@@ -38,7 +38,7 @@ const OTP = () => {
       localStorage.setItem("resetPasswordOtp", otpForm.getValues().otp);
       router.push("/password-reset");
     },
-    onError: (error: any) => {
+    onError: (error: any) => { //eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(error?.response?.data?.message || "Invalid OTP");
       setErrorMessage(error?.response?.data?.message || "Invalid OTP");
     }
@@ -49,7 +49,7 @@ const OTP = () => {
     onSuccess: () => {
       toast.success("A new code has been sent to your email");
     },
-    onError: (error: any) => {
+    onError: (error: any) => { //eslint-disable-line @typescript-eslint/no-explicit-any
       toast.error(error?.response?.data?.message || "Failed to resend code");
     }
   });
