@@ -141,7 +141,8 @@ const Login:React.FC<Props> = ({isOpen,onOpenChange}) => {
                         Remember me
                     </Checkbox>
                     <Link
-                        href="#"
+                        href="/forgot-password"
+                        onClick={() => onOpenChange(false)}
                     >
                         <h1 className="text-small text-gray-700">Forgot Password?</h1>
                     </Link>
