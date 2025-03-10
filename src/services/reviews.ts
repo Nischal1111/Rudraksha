@@ -24,7 +24,7 @@ export const getReviewsSlider = async () => {
 }
 export const getReviews = async (limit:number,page:number) => {
     try{
-        const res=await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/review/get?page=${page}&limit=`)
+        const res=await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/review/get?page=${page}&limit=${limit}`)
         return res.data
     }catch(error){
         console.log(error)

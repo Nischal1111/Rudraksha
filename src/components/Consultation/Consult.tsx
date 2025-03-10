@@ -1,10 +1,7 @@
 "use client"
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Input,
-  Button,
-  Textarea,
   Accordion,
   AccordionItem,
 } from "@nextui-org/react";
@@ -12,25 +9,10 @@ import {
   FaClock, 
   FaMedal, 
   FaUsers, 
-  FaComments,
-  FaCalendarAlt,
-  FaPhone,
-  FaEnvelope 
+  FaComments
 } from "react-icons/fa";
 import Image from 'next/image';
 import SharedTitle from '@/shared/SharedTitle/SharedTitle';
-import { useMutation } from '@tanstack/react-query';
-import { postConsult } from '@/services/consult';
-import { toast } from 'sonner';
-
-// Types
-interface ConsultFormData {
-  fullName: string;
-  email: string;
-  phone: string;
-  date: string;
-  message: string;
-}
 
 interface Benefit {
   icon: React.ReactNode;
@@ -45,22 +27,6 @@ interface FadeInUpAnimation {
 }
 
 const ConsultationPage: React.FC = () => {
-  const [formData, setFormData] = useState<ConsultFormData>({
-    fullName: '',
-    email: '',
-    phone: '',
-    date: '',
-    message: ''
-  });
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-  
   const fadeInUp: FadeInUpAnimation = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -89,30 +55,6 @@ const ConsultationPage: React.FC = () => {
       description: "Book consultations at your convenience"
     }
   ];
-
-  const {mutate: postConsultMutation} = useMutation({
-    mutationFn: (data: ConsultFormData) => postConsult(data),
-    onSuccess: () => {
-      toast.success("Consultation Request has been sent.")
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        date: '',
-        message: ''
-      });
-    },
-    onError: () => {
-      toast.error("Failed to send Consultation Request.")
-    }
-  });
-
-  const today = new Date().toISOString().split('T')[0];
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    postConsultMutation(formData);
-  };
 
   return (
     <div className="w-full">
@@ -157,79 +99,17 @@ const ConsultationPage: React.FC = () => {
             <div className="p-6 border-b border-gray-200">
               <div className="flex flex-col">
                 <p className="text-2xl font-semibold text-black">Book Your Consultation</p>
-                <p className="text-small text-gray-500">Fill in your details below</p>
+                <p className="text-small text-gray-500">Select a time that works for you</p>
               </div>
             </div>
-            <form onSubmit={handleSubmit} className="p-6 space-y-6">
-              <div className="grid grid-cols-1 gap-4">
-                <Input 
-                  label="Full Name"
-                  placeholder="Enter your full name"
-                  variant="bordered"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              
-              <Input
-                type="email"
-                label="Email"
-                placeholder="Enter your email"
-                variant="bordered"
-                startContent={<FaEnvelope className="text-default-400" />}
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
+            {/* Cal.com embed taking full width and height */}
+            <div className="w-full h-[600px]">
+              <iframe
+                src="https://cal.com/khandbarirudraksha"
+                style={{ width: "100%", height: "100%", border: "none" }}
+                allowFullScreen
               />
-              
-              <Input
-                type="tel"
-                label="Phone"
-                placeholder="Enter your phone number"
-                variant="bordered"
-                startContent={<FaPhone className="text-default-400" />}
-                name="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                required
-              />
-              
-              <Input
-                type="date"
-                label="Select Date"
-                placeholder="Choose your preferred date"
-                variant="bordered"
-                startContent={<FaCalendarAlt className="text-default-400" />}
-                name="date"
-                min={today}
-                value={formData.date}
-                onChange={handleInputChange}
-                required
-              />
-              
-              <Textarea
-                label="Your Requirements"
-                placeholder="Tell us about your specific requirements..."
-                variant="bordered"
-                minRows={4}
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                required
-              />
-              
-              <Button 
-                color="primary" 
-                size="lg" 
-                className="w-full"
-                type="submit"
-              >
-                Schedule Consultation
-              </Button>
-            </form>
+            </div>
           </motion.div>
 
           <motion.div 
@@ -281,7 +161,7 @@ const ConsultationPage: React.FC = () => {
               }}
             >
               <AccordionItem key="1" title="What is the consultation process like?">
-                Our consultation process begins with you filling out the form with your specific requirements and concerns. Our experts will review your information and schedule a personalized session.
+                Our consultation process begins with you selecting a time slot that works for you. Our experts will meet with you at the scheduled time for a personalized session.
               </AccordionItem>
               <AccordionItem key="2" title="How long does a consultation session last?">
                 A typical consultation session lasts between 30-45 minutes. This gives us enough time to understand your needs and provide detailed recommendations.
