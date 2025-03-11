@@ -70,3 +70,28 @@ export const getExclude=async(id:string|undefined|string[])=>{
     }
 }
 
+export const getByMultipleFilters = async (
+  filters: Record<string, string>,
+  page?: number,
+  limit?: number
+) => {
+  try {
+    // Convert filters object to comma-separated strings for API
+    const filterKeys = Object.keys(filters).filter(key => filters[key]);
+    const filterValues = filterKeys.map(key => filters[key]);
+
+    // Build query parameters
+    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/get/products/?filterBy=${filterKeys.join(',')}&filterValue=${filterValues.join(',')}`;
+    
+    // Add pagination if provided
+    if (page && limit) {
+      url += `&page=${page}&limit=${limit}`;
+    }
+
+    const res = await axios.get(url);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

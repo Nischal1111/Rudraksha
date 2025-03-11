@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { getByCategory, getByFilter, getSpecialProduct } from '@/services/products';
+import { getByCategory, getByMultipleFilters, getSpecialProduct } from '@/services/products';
 import Loader from '@/shared/Loader';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -58,14 +58,32 @@ const Products = () => {
     queryKey: ['products', page, ITEMS_PER_PAGE, activeFilter],
     queryFn: async () => {
       try {
-        if (activeFilter) {
-          return await getByFilter(activeFilter.category, activeFilter.value);
-        }
-        return await getByCategory("Beads", page, ITEMS_PER_PAGE);
-      } catch (error) {
-        toast.error("Failed to fetch products");
-        throw error;
-      }
+              // Create filters object
+              const filters: Record<string, string> = {
+                category: 'Beads', // Always filter by Bracelet category
+              };
+              
+              // Add optional filters
+              if (selectedFace) {
+                filters.faces = selectedFace;
+              }
+              
+              if (selectedCountry) {
+                filters.country = selectedCountry;
+              }
+              if (selectedSize) {
+                filters.size = selectedSize;
+              }
+              
+              if (Object.keys(filters).length === 1) {
+                return await getByCategory("Beads", page, ITEMS_PER_PAGE);
+              }
+              
+              return await getByMultipleFilters(filters, page, ITEMS_PER_PAGE);
+            } catch (error) {
+              toast.error("Failed to fetch products");
+              throw error;
+            }
     },
   });
 
@@ -119,7 +137,7 @@ const Products = () => {
   if (error) return <div className="text-center py-10">Error loading products. Please try again later.</div>;
 
   return (
-    <div ref={pageRef} className="min-h-screen bg-gray-50">
+    <div ref={pageRef} className="min-h-screen">
       {/* Hero Section */}
       <div className="relative h-[500px] text-white">
         <Image
@@ -247,52 +265,14 @@ const Products = () => {
                 Filters
               </Button>
             </div>
-
-            {/* Active Filters Display */}
-            {activeFilter && (
-              <div className="flex flex-wrap gap-2 mb-4">
-                {selectedFace && (
-                  <Chip 
-                    onClose={() => {
-                      setSelectedFace("");
-                      handleFilterChange('faces', "");
-                    }}
-                    variant="flat"
-                    color="primary"
-                  >
-                    Face: {selectedFace}
-                  </Chip>
-                )}
-                {selectedSize && (
-                  <Chip 
-                    onClose={() => {
-                      setSelectedSize("");
-                      handleFilterChange('size', "");
-                    }}
-                    variant="flat"
-                    color="primary"
-                  >
-                    Size: {selectedSize}
-                  </Chip>
-                )}
-                {selectedCountry && (
-                  <Chip 
-                    onClose={() => {
-                      setSelectedCountry("");
-                      handleFilterChange('country', "");
-                    }}
-                    variant="flat"
-                    color="primary"
-                  >
-                    Country: {selectedCountry}
-                  </Chip>
-                )}
-              </div>
-            )}
-
-            {/* Products Grid */}
+            
             <div>
               <h1 className={`text-primary font-bold text-4xl mb-8 ${josefin.className}`}>Our Rudraksha Beads Collection</h1>
+              {productsData?.products.length === 0 && (
+                <div className='w-full h-[300px] bg-gray-50 rounded-sm flex items-center justify-center'>
+                    <h1 className='text-2xl font-semibold text-gray-400 tracking-wider'>No Product Found.</h1>
+                </div>
+            )}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {productsData?.products.map((product) => (
                   <div key={product._id} className="group bg-white rounded-xl shadow-lg overflow-hidden hover:-translate-y-1 transition-all duration-300">
@@ -315,8 +295,8 @@ const Products = () => {
                           <div className="text-xl font-bold text-primary">${product.price}</div>
                         </div>
 
-                          <div className="flex gap-2 mt-2">
-                            <Chip size="sm" variant="flat" color="primary">{product.size}</Chip>
+                          <div className="flex gap-2 mt-2 ">
+                            <Chip size="sm" variant="flat" color='primary'>{product.size}</Chip>
                             <Chip size="sm" variant="flat" color="secondary">{product.faces} Face</Chip>
                             <Chip size="sm" variant="flat" color="success">{product.country}</Chip>
                           </div>

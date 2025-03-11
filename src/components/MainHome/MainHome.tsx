@@ -10,6 +10,7 @@ import Reviews from './Reviews'
 import ChooseUs from './ChooseUs'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { josefin } from '@/utils/font'
 
 const MainHome = () => {
     const [searchQuery, setSearchQuery] = React.useState<string>("");
@@ -39,8 +40,8 @@ const MainHome = () => {
                         />
                 </div>
             <div className='relative text-left lg:w-4/5 w-full'>
-                <h1 className='font-medium text-white lg:text-4xl text-2xl lg:w-2/3 w-full'>
-                Discover the Power of Authentic Rudraksha Beads
+                <h1 className={`${josefin.className} font-medium text-white lg:text-5xl text-2xl lg:w-2/3 w-full`}>
+                Discover the Power of  <span className='text-primary'>Authentic </span>Rudraksha Beads
                 </h1>
                 <p className='text-base text-white lg:w-4/5 w-full my-4'>
                 Handpicked, spiritually enriched, and rooted in tradition—our collection of sacred rudraksha beads brings you closer to tranquility, health, and prosperity. Experience the divine energy and unlock your spiritual potential today.

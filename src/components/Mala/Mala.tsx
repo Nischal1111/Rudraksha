@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { getByCategory, getByFilter } from '@/services/products';
+import { getByCategory, getByMultipleFilters } from '@/services/products';
 import Loader from '@/shared/Loader';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -32,8 +32,8 @@ export interface ProductsData {
 }
 
 interface FilterState {
-  category: string;
-  value: string;
+  faces?: string;
+  country?: string;
 }
 
 const Mala = () => {
@@ -45,20 +45,37 @@ const Mala = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedFace, setSelectedFace] = useState<string>("");
   const [selectedCountry, setSelectedCountry] = useState<string>("");
-  const [activeFilter, setActiveFilter] = useState<FilterState | null>(null);
+  const [filters, setFilters] = useState<FilterState>({}); // eslint-disable-line @typescript-eslint/no-unused-vars
   
   // Refs
   const pageRef = React.useRef<HTMLDivElement>(null);
 
   // Queries
   const { data: productsData, isLoading, error } = useQuery<ProductsData>({
-    queryKey: ['mala-products', page, ITEMS_PER_PAGE, activeFilter],
+    queryKey: ['mala-products', page, ITEMS_PER_PAGE, selectedFace, selectedCountry],
     queryFn: async () => {
       try {
-        if (activeFilter) {
-          return await getByFilter(activeFilter.category, activeFilter.value);
+        // Create filters object
+        const filters: Record<string, string> = {
+          category: 'Mala', // Always filter by Mala category
+        };
+        
+        // Add optional filters
+        if (selectedFace) {
+          filters.faces = selectedFace;
         }
-        return await getByCategory("Mala", page, ITEMS_PER_PAGE);
+        
+        if (selectedCountry) {
+          filters.country = selectedCountry;
+        }
+        
+        // If we only have the category filter, use the simpler getByCategory function
+        if (Object.keys(filters).length === 1) {
+          return await getByCategory("Mala", page, ITEMS_PER_PAGE);
+        }
+        
+        // Otherwise use the multiple filters function
+        return await getByMultipleFilters(filters, page, ITEMS_PER_PAGE);
       } catch (error) {
         toast.error("Failed to fetch products");
         throw error;
@@ -79,22 +96,28 @@ const Mala = () => {
   };
 
   const handleFilterChange = (category: string, value: string) => {
-    if (!value) {
-      setActiveFilter(null);
-      return;
-    }
-
-    setActiveFilter({
-      category,
-      value
+    setFilters(prevFilters => {
+      if (!value) {
+        // If value is empty, remove this filter
+        const newFilters = { ...prevFilters };
+        delete newFilters[category as keyof FilterState];
+        return newFilters;
+      }
+      
+      // Otherwise, add/update this filter
+      return {
+        ...prevFilters,
+        [category]: value
+      };
     });
+    
     setPage(1);
   };
 
   const clearFilters = () => {
     setSelectedFace("");
     setSelectedCountry("");
-    setActiveFilter(null);
+    setFilters({});
     setPage(1);
   };
 
@@ -102,7 +125,7 @@ const Mala = () => {
   if (error) return <div className="text-center py-10">Error loading products. Please try again later.</div>;
 
   return (
-    <div ref={pageRef} className="min-h-screen bg-gray-50">
+    <div ref={pageRef} className="min-h-screen">
       {/* Hero Section */}
       <div className="relative h-[500px] text-white">
         <Image
@@ -134,7 +157,7 @@ const Mala = () => {
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-semibold">Filters</h3>
               <div className="flex gap-2">
-                {activeFilter && (
+                {(selectedFace || selectedCountry) && (
                   <Button 
                     size="sm"
                     variant="light" 
@@ -158,7 +181,7 @@ const Mala = () => {
             <Accordion>
               {/* Faces Filter */}
               <AccordionItem key="faces" title="Faces" classNames={{
-                    title:"!text-black"
+                    title:"!text-black text-sm"
                   }}>
                 <CheckboxGroup
                   value={selectedFace ? [selectedFace] : []}
@@ -181,7 +204,7 @@ const Mala = () => {
 
               {/* Country Filter */}
               <AccordionItem key="country" title="Origin" classNames={{
-                    title:"!text-black"
+                    title:"!text-black text-sm"
                   }}>
                 <CheckboxGroup
                   value={selectedCountry ? [selectedCountry] : []}
@@ -218,7 +241,7 @@ const Mala = () => {
             </div>
 
             {/* Active Filters Display */}
-            {activeFilter && (
+            {(selectedFace || selectedCountry) && (
               <div className="flex flex-wrap gap-2 mb-4">
                 {selectedFace && (
                   <Chip 
