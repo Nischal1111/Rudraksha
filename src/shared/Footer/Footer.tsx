@@ -61,6 +61,7 @@ const Footer = () => {
                             <FooterLink href="/rudraksha">Rudraksha</FooterLink>
                             <FooterLink href="/mala">Mala</FooterLink>
                             <FooterLink href="/bracelet">Bracelet</FooterLink>
+                            <FooterLink href="/exclusive">Exclusive</FooterLink>
                             <FooterLink href="/consultation">Consultation</FooterLink>
                         </div>
                     </section>

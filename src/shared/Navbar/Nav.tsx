@@ -74,15 +74,17 @@ const Navbar = () => {
                 <div className='w-full flex justify-between items-center font-medium uppercase text-sm tracking-wide'>
                     {/* Logo section */}
                     <div className='flex md:gap-20 items-center'>
-                        <div className='flex items-center gap-4'>
-                            <section className='size-12 md:size-16 rounded-full'>
-                                <Image src={'/Logo.webp'} alt='logo' height={1000} width={1000} className='object-cover h-full w-full rounded-full' />
-                            </section>
-                            <div className='flex flex-col -gap-2'>
-                                <h1 className={`${stylishFont.className} text-xl md:text-2xl leading-5`}>Khandbari</h1>
-                                <p className='text-xs capitalize text-gray-500'>Rudraksha Suppliers</p>
+                        <Link href="/">
+                            <div className='flex items-center gap-4'>
+                                <section className='size-12 md:size-16 rounded-full'>
+                                    <Image src={'/Logo.webp'} alt='logo' height={1000} width={1000} className='object-cover h-full w-full rounded-full' />
+                                </section>
+                                <div className='flex flex-col -gap-2'>
+                                    <h1 className={`${stylishFont.className} text-xl md:text-2xl leading-5`}>Khandbari</h1>
+                                    <p className='text-xs capitalize text-gray-500'>Rudraksha Suppliers</p>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
 
                         {/* Desktop Navigation */}
                         <section className='hidden md:flex items-center justify-center'>
