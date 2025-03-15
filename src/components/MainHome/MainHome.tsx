@@ -32,18 +32,18 @@ const MainHome = () => {
                 <div className='h-full flex items-center justify-left w-full relative lg:px-24 px-4'>
                 <div className='h-full absolute inset-0 w-full'>
                     <Image
-                        src='https://getpaidstock.com/tmp/[GetPaidStock.com]-67cf6bd1c5c2b.jpg'
+                        src={'/other.png'}
                         alt='Rudraksha beads background'
                         height={1000}
                         width={1000}
-                        className='w-full h-full object-cover'
+                        className='w-full h-full object-cover opacity-[.7]'
                         />
                 </div>
             <div className='relative text-left lg:w-4/5 w-full'>
-                <h1 className={`${josefin.className} font-medium text-white lg:text-5xl text-2xl lg:w-2/3 w-full`}>
-                Discover the Power of  <span className='text-primary'>Authentic </span>Rudraksha Beads
+                <h1 className={`${josefin.className} font-medium text-black lg:text-5xl text-2xl lg:w-2/3 w-full`}>
+                Discover the Power of  <span className='text-white'>Authentic </span>Rudraksha Beads
                 </h1>
-                <p className='text-base text-white lg:w-4/5 w-full my-4'>
+                <p className='text-base text-black lg:w-3/5 w-full my-4'>
                 Handpicked, spiritually enriched, and rooted in tradition—our collection of sacred rudraksha beads brings you closer to tranquility, health, and prosperity. Experience the divine energy and unlock your spiritual potential today.
                 </p>
                 <form action="" onSubmit={handleSearch}>
