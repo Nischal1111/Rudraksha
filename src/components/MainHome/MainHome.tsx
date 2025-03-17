@@ -41,10 +41,10 @@ const MainHome = () => {
                 </div>
             <div className='relative text-left lg:w-4/5 w-full'>
                 <h1 className={`${josefin.className} font-medium text-black lg:text-5xl text-2xl lg:w-2/3 w-full`}>
-                Discover the Power of  <span className='text-white'>Authentic </span>Rudraksha Beads
+                    <span className='text-white'>Authentic </span>Rudraksha <br /> Beads
                 </h1>
-                <p className='text-base text-black lg:w-3/5 w-full my-4'>
-                Handpicked, spiritually enriched, and rooted in tradition—our collection of sacred rudraksha beads brings you closer to tranquility, health, and prosperity. Experience the divine energy and unlock your spiritual potential today.
+                <p className='text-base text-black lg:w-1/2 w-full my-4'>
+                    Handpicked and spiritually enriched, our sacred rudraksha beads bring tranquility, health, and prosperity. Unlock your spiritual potential today.
                 </p>
                 <form action="" onSubmit={handleSearch}>
                 <Input 
@@ -58,7 +58,7 @@ const MainHome = () => {
                     value={searchQuery}
                     onChange={handleInputChange}
                     placeholder="Search what you are looking for..." 
-                    className='rounded-sm mt-20 lg:w-3/5 w-full' 
+                    className='rounded-sm mt-20 lg:w-1/2 w-full' 
                     radius='sm' 
                     startContent={<CiSearch size={32} className='text-black mr-2'/>} 
                     endContent={
